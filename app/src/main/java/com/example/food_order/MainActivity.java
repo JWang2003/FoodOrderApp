@@ -4,8 +4,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity {
     Restaurant restaurant1;
 
@@ -18,15 +16,15 @@ public class MainActivity extends AppCompatActivity {
     }
     void setUpRestaurants(){
         Restaurant restaurant1 = new Restaurant();
-        restaurant1.menu.dishes = new ArrayList<>();
-
-        Dish dish = new Dish("Food", 1200, 12, "Hello");
-        restaurant1.menu.dishes.add(dish);
-
-        dish = new Dish("A", 1, 2, "B");
-        restaurant1.menu.dishes.add(dish);
-
-        dish = new Dish("C", 2, 4, "Dfsf");
-        restaurant1.menu.dishes.add(dish);
+//        restaurant1.menu.dishes = new ArrayList<>();
+//
+//        Dish dish = new Dish("Food", 1200, 12, "Hello");
+//        restaurant1.menu.dishes.add(dish);
+//
+//        dish = new Dish("A", 1, 2, "B");
+//        restaurant1.menu.dishes.add(dish);
+//
+//        dish = new Dish("C", 2, 4, "Dfsf");
+//        restaurant1.menu.dishes.add(dish);
     }
 }

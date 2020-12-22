@@ -1,18 +1,31 @@
 package com.example.food_order;
 
-public class Dish {
-    private String name;
-    private int price;
-    private int photo;
-    private String description;
+import androidx.annotation.NonNull;
 
-    Dish(String name, int price, int photo, String description){
+public class Dish {
+    public String name;
+    public String description;
+    public int price;
+    public int photo;
+
+    public Dish(@NonNull String name, @NonNull String description, int price, int photo) {
         this.name = name;
+        this.description = description;
         this.price = price;
         this.photo = photo;
-        this.description = description;
     }
-    public int getPrice(){
-        return price;
+    // Show Dish information when printing
+    @Override
+    public String toString() {
+        return "Dish{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", photo=" + photo +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
+    public Boolean equals(Dish dish) {
+        return (name.equals(dish.name) && description.equals(dish.description) && price == dish.price && photo == dish.photo);
     }
 }
