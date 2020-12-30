@@ -1,31 +1,27 @@
 package com.example.food_order;
 
-import androidx.annotation.NonNull;
+import android.graphics.Bitmap;
 
 public class Dish {
-    public String name;
-    public String description;
-    public int price;
-    public int photo;
+    public String foodName;
+    public Bitmap foodImage;
+    public String price;
+    public String details;
 
-    public Dish(@NonNull String name, @NonNull String description, int price, int photo) {
-        this.name = name;
-        this.description = description;
+    public Dish(String foodName, Bitmap foodImage, String price, String details) {
+        this.foodName = foodName;
+        this.foodImage = foodImage;
         this.price = price;
-        this.photo = photo;
+        this.details = details;
     }
-    // Show Dish information when printing
+
     @Override
     public String toString() {
         return "Dish{" +
-                "name='" + name + '\'' +
-                ", price=" + price +
-                ", photo=" + photo +
-                ", description='" + description + '\'' +
+                "foodName='" + foodName + '\'' +
+                ", foodImage=" + foodImage +
+                ", price='" + price + '\'' +
+                ", details='" + details + '\'' +
                 '}';
-    }
-
-    public Boolean equals(Dish dish) {
-        return (name.equals(dish.name) && description.equals(dish.description) && price == dish.price && photo == dish.photo);
     }
 }

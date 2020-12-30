@@ -1,21 +1,51 @@
 package com.example.food_order;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+
+import java.util.ArrayList;
+
 public class Restaurant {
+
+    Context context;
+
     // Displayed information
     public String name;
+    public Bitmap image;
     public String address;
-    public String phoneNumber;
-    public String averageCost;
+    public String priceRange;
     public String starRating;
-    public int image;
+    public String deliveryFee;
+    public String yelpUrl;
 
-    // Properties
-    Menu menu = new Menu(); // Singleton? Each restaurant should only have one menu
-    public Restaurant() {
-        setupProperties();
+    // Menu which gets populated when restaurant is selected
+    public ArrayList<Dish> menu;
+
+    public Restaurant(String name, Bitmap image, String address, String priceRange, String starRating, String deliveryFee, String yelpUrl) {
+        this.name = name;
+        this.image = image;
+        this.address = address;
+        this.priceRange = priceRange;
+        this.starRating = starRating;
+        this.deliveryFee = deliveryFee;
+        this.yelpUrl = yelpUrl;
     }
 
-    private void setupProperties() {
-        // Roland uses this to randomly generate properties for Restaurant using lorem, we need a way to not use random values
+    public void populateMenu(DatabaseAccess db) {
+        menu = db.getDishes(name);
+    }
+
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "name='" + name + '\'' +
+                ", image=" + image +
+                ", address='" + address + '\'' +
+                ", priceRange='" + priceRange + '\'' +
+                ", starRating='" + starRating + '\'' +
+                ", deliveryFee='" + deliveryFee + '\'' +
+                ", yelpUrl='" + yelpUrl + '\'' +
+                ", menu=" + menu +
+                '}';
     }
 }

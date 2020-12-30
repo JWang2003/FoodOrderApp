@@ -11,7 +11,6 @@
         android:theme="@style/Theme.FoodOrder">
         <activity android:name=".FavouritesView"></activity>
         <activity android:name=".CheckoutView" />
-        <activity android:name=".FocusView" />
         <activity android:name=".RestaurantView" />
         <activity android:name=".MainActivity">
             <intent-filter>
