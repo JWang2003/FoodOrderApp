@@ -98,7 +98,7 @@ public class DatabaseAccess {
         }else {
             System.out.println("Failed to add, cursor is null or count is 0");
         }
-//        close();
+        close();
         return dishes;
     }
 }

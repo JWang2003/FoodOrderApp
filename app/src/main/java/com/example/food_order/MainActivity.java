@@ -68,8 +68,8 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
         categoryAdapter = new CategoryAdapter(this, categories, this);
         categoriesRecyclerView.setAdapter(categoryAdapter);
         categoriesRecyclerView.setHasFixedSize(true);
-
     }
+
     @Override
     public void onNoteClick(int position) {
         Category currentCategory = categories.get(position);
