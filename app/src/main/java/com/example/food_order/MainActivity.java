@@ -1,5 +1,6 @@
 package com.example.food_order;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -74,6 +75,8 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
         Category currentCategory = categories.get(position);
         // This gets all the restaurants in the category selected
         ArrayList<Restaurant> restaurants = db.getRestaurants(currentCategory.categoryName);
-        // TODO: pass the restaurants into the next activity
+        Intent intent = new Intent(this, RestaurantView.class);
+        intent.putExtra("catname", currentCategory.categoryName);
+        startActivity(intent);
     }
 }
