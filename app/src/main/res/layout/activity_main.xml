@@ -14,16 +14,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <SearchView
-            android:id="@+id/search_bar"
-            android:layout_width="189dp"
-            android:layout_height="33dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="3"
-            android:background="@drawable/searchbar"
-            android:iconifiedByDefault="false" />
+<!--        <SearchView-->
+<!--            android:id="@+id/search_bar"-->
+<!--            android:layout_width="189dp"-->
+<!--            android:layout_height="33dp"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_weight="3"-->
+<!--            android:background="@drawable/searchbar"-->
+<!--            android:iconifiedByDefault="false" />-->
 
         <ImageButton
             android:id="@+id/checkout"
@@ -40,19 +40,24 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/categories_recycle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="220dp"
+        android:scrollbars="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_max="200dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="329dp"
-        android:layout_marginTop="240dp"
         app:cardBackgroundColor="@color/teal_200"
         app:cardCornerRadius="15dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categories_recycle">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
@@ -80,7 +85,8 @@
             android:id="@+id/playlist_recycler"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:layout_marginTop="50dp" />
+            android:layout_marginTop="50dp"
+            android:scrollbars="horizontal" />
 
     </androidx.cardview.widget.CardView>
 

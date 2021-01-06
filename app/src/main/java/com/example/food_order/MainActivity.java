@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
     // XML Views
     RecyclerView categoriesRecyclerView;
     ImageView restaurantImage;
-    SearchView searchView;
+//    SearchView searchView;
     ImageButton cartButton;
     Button allPlaylistsButton;
     RecyclerView playlistRecyclerView;
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
     public void connectXMLViews() {
         categoriesRecyclerView = findViewById(R.id.categories_recycle);
         restaurantImage = findViewById(R.id.image);
-        searchView = findViewById(R.id.search_bar);
+//        searchView = findViewById(R.id.search_bar);
         cartButton = findViewById(R.id.checkout);
         allPlaylistsButton = findViewById(R.id.view_all);
         playlistRecyclerView = findViewById(R.id.playlist_recycler);
