@@ -31,6 +31,8 @@ public class Restaurant {
         this.yelpUrl = yelpUrl;
     }
 
+
+
     public void populateMenu(DatabaseAccess db) {
         menu = db.getDishes(name);
     }
@@ -48,4 +50,6 @@ public class Restaurant {
                 ", menu=" + menu +
                 '}';
     }
+
+
 }
