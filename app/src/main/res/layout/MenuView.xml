@@ -153,9 +153,6 @@
         app:cardCornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         >
-        <TextView
-            android:layout_width=""
-            android:layout_height=""
     </androidx.cardview.widget.CardView>
 
 
