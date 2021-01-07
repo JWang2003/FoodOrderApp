@@ -2,19 +2,15 @@ package com.example.food_order;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
-import com.example.food_order.categoryRecycler.Category;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.food_order.restaurantRecycler.RestaurantAdapter;
 import com.example.food_order.restaurantRecycler.RestaurantViewHolder;
 
@@ -74,8 +70,7 @@ public class RestaurantView extends AppCompatActivity implements RestaurantViewH
         // This gets all the data of the restaurant selected
         String restaurantName = currentRestaurant.name;
 
-        //TODO: implement jim's view here
-        Intent intent = new Intent(this, FavouritesView.class);
+        Intent intent = new Intent(this, MenuView.class);
         intent.putExtra("restaurantname", restaurantName);
         startActivity(intent);
     }
