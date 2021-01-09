@@ -1,6 +1,8 @@
 package com.example.food_order;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.food_order.restaurantRecycler.RestaurantAdapter;
 import com.example.food_order.restaurantRecycler.RestaurantViewHolder;
 
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 public class RestaurantView extends AppCompatActivity implements RestaurantViewHolder.OnNoteListener {
@@ -68,10 +71,26 @@ public class RestaurantView extends AppCompatActivity implements RestaurantViewH
     public void onNoteClick(int position) {
         Restaurant currentRestaurant = restaurants.get(position);
         // This gets all the data of the restaurant selected
-        String restaurantName = currentRestaurant.name;
+//        String restaurantName = currentRestaurant.name;
+        Bitmap bmp = currentRestaurant.image;
+        try { // https://stackoverflow.com/questions/11010386/passing-android-bitmap-data-within-activity-using-intent-in-android
+            //Write file
+            String filename = "bitmap.png";
+            FileOutputStream stream = this.openFileOutput(filename, Context.MODE_PRIVATE);
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            //Cleanup
+            stream.close();
+            bmp.recycle();
 
-        Intent intent = new Intent(this, MenuView.class);
-        intent.putExtra("restaurantname", restaurantName);
-        startActivity(intent);
+            //Pop intent
+            Intent intent = new Intent(this, MenuView.class);
+            // All this extra code is because restaurant.image is too big, so pass it separately
+            intent.putExtra("restaurant", currentRestaurant);
+            intent.putExtra("image", filename);
+            startActivity(intent);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
