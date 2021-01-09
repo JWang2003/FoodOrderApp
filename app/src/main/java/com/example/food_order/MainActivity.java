@@ -19,6 +19,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements CategoryViewHolder.OnNoteListener {
 
+
+
     // Properties
     DatabaseAccess db;
     ArrayList<Category> categories;
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
         categoriesRecyclerView.setAdapter(categoryAdapter);
         categoriesRecyclerView.setHasFixedSize(true);
     }
+
 
     @Override
     public void onNoteClick(int position) {

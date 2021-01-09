@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.food_order.R;
 
 import org.w3c.dom.Text;
-
 public class RestaurantViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     // Properties
@@ -37,9 +36,10 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClickV(View v) {
         onNoteListener.onNoteClick(getAdapterPosition());
     }
+
 
     public interface OnNoteListener {
         void onNoteClick(int position);

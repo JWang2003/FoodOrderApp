@@ -1,6 +1,7 @@
-package com.example.food_order.categoryRecycler;
+package com.example.food_order.menuRecycler;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -8,17 +9,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.food_order.R;
 
-public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class MenuViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     // Properties
     View itemView;
-    TextView nameView;
+    TextView dishNameView;
+    TextView descriptionView;
+    TextView priceView;
+    ImageView starsView;
     OnNoteListener onNoteListener;
 
-    public CategoryViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
+    public MenuViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
         super(itemView);
         this.itemView = itemView;
-        nameView = itemView.findViewById(R.id.category_name);
+        dishNameView = itemView.findViewById(R.id.);
+        descriptionView = itemView.findViewById(R.id);
+        priceView = itemView.findViewById(R.id.);
+        starsView = itemView.findViewById(R.id.);
+        ///
+
+
         // Make item clickable
         this.onNoteListener = onNoteListener;
         itemView.setOnClickListener(this);
