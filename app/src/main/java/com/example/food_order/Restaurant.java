@@ -2,10 +2,12 @@ package com.example.food_order;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.ArrayList;
 
-public class Restaurant {
+public class Restaurant implements Parcelable {
 
     Context context;
 
@@ -31,7 +33,26 @@ public class Restaurant {
         this.yelpUrl = yelpUrl;
     }
 
+    protected Restaurant(Parcel in) {
+        name = in.readString();
+        address = in.readString();
+        priceRange = in.readString();
+        starRating = in.readString();
+        deliveryFee = in.readString();
+        yelpUrl = in.readString();
+    }
 
+    public static final Creator<Restaurant> CREATOR = new Creator<Restaurant>() {
+        @Override
+        public Restaurant createFromParcel(Parcel in) {
+            return new Restaurant(in);
+        }
+
+        @Override
+        public Restaurant[] newArray(int size) {
+            return new Restaurant[size];
+        }
+    };
 
     public void populateMenu(DatabaseAccess db) {
         menu = db.getDishes(name);
@@ -47,9 +68,22 @@ public class Restaurant {
                 ", starRating='" + starRating + '\'' +
                 ", deliveryFee='" + deliveryFee + '\'' +
                 ", yelpUrl='" + yelpUrl + '\'' +
-                ", menu=" + menu +
                 '}';
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(address);
+        dest.writeString(priceRange);
+        dest.writeString(starRating);
+        dest.writeString(deliveryFee);
+        dest.writeString(yelpUrl);
+    }
 }
