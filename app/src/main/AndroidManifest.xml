@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodOrder">
-        <activity android:name=".MenuView"></activity>
+        <activity android:name=".allPlaylist"></activity>
+        <activity android:name=".MenuView" />
         <activity android:name=".FoodView" />
         <activity android:name=".CheckoutView" />
         <activity android:name=".RestaurantView" />

@@ -6,13 +6,10 @@ import java.util.ArrayList;
 
 public class Category {
     public String categoryName;
-    public ArrayList<Restaurant> restaurants;
+    public int categoryPicture;
 
-    public Category(String categoryName) {
+    public Category(String categoryName, int categoryPicture) {
         this.categoryName = categoryName;
-    }
-
-    public void populateRestaurants() {
-        // Make it pass the category name into database, getting all the restaurants
+        this.categoryPicture = categoryPicture;
     }
 }

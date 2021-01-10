@@ -2,6 +2,7 @@ package com.example.food_order;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
     RecyclerView playlistRecyclerView;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,13 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
         connectXMLViews();
         populateCategories();
         setUpGridLayout();
+        allPlaylistsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, allPlaylist.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void connectXMLViews() {
@@ -56,11 +65,11 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
     private void populateCategories() {
         // The name of the category matches those in the database
         categories = new ArrayList<Category>();
-        categories.add(new Category("American"));
-        categories.add(new Category("European"));
-        categories.add(new Category("Oriental"));
-        categories.add(new Category("South and Southeast Asian"));
-        categories.add(new Category("Bubble Tea"));
+        categories.add(new Category("American", R.drawable.americanfood));
+        categories.add(new Category("European", R.drawable.european));
+        categories.add(new Category("Oriental", R.drawable.oriental));
+        categories.add(new Category("South and Southeast Asian", R.drawable.indian));
+        categories.add(new Category("Bubble Tea", R.drawable.tea));
     }
 
     public void setUpGridLayout() {
@@ -79,4 +88,5 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
         intent.putExtra("catname", currentCategory.categoryName);
         startActivity(intent);
     }
+
 }
