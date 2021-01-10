@@ -75,7 +75,9 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
     public void onNoteClick(int position) {
         Category currentCategory = categories.get(position);
         // This gets all the restaurants in the category selected
-        Intent intent = new Intent(this, RestaurantView.class);
+        //TODO: comment for debug
+        //Intent intent = new Intent(this, RestaurantView.class);
+        Intent intent = new Intent(this, EditPlaylist.class);
         intent.putExtra("catname", currentCategory.categoryName);
         startActivity(intent);
     }
