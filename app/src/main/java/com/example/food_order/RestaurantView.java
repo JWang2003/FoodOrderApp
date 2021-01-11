@@ -36,9 +36,6 @@ public class RestaurantView extends AppCompatActivity implements RestaurantViewH
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        db = DatabaseAccess.getInstance(getApplicationContext());
-
         setContentView(R.layout.activity_restaurant_view);
         db = DatabaseAccess.getInstance(getApplicationContext());
         Intent intent = getIntent();
