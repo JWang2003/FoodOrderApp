@@ -3,39 +3,41 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingBottom="5dp"
-    android:paddingHorizontal="5dp">
+    android:paddingHorizontal="5dp"
+    android:layout_margin="10dp"
+    >
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
-        android:layout_width="400dp"
+        android:layout_width="380dp"
         android:layout_height="300dp"
-        app:cardBackgroundColor="@color/purple_200"
-        app:cardCornerRadius="15dp"
         android:layout_gravity="center"
-        android:background="@color/teal_200">
+        android:background="@color/teal_200"
+        app:cardBackgroundColor="#EDEDED"
+        app:cardCornerRadius="25dp">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
 
-
-        <ImageView
-            android:id="@+id/restaurant_image"
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@mipmap/ic_launcher">
-        </ImageView>
+            <ImageView
+                android:id="@+id/restaurant_image"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:background="#EDEDED"
+                app:layout_constraintTop_toTopOf="parent"
+                android:scaleType="centerCrop"
+                ></ImageView>
 
             <TextView
                 android:id="@+id/restaurant_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:font-Family=""
-                android:fontFamily="@font/open_sans_extrabold"
+                android:fontFamily="@font/open_sans_regular"
                 android:padding="10dp"
                 android:text="RESTAURANT NAME"
                 android:textColor="@color/black"
@@ -47,38 +49,38 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_regular"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:text="$$$"
                 android:padding="10dp"
+                android:text="$$$"
+                android:textColor="@color/black"
                 android:textSize="15sp"
-                android:textColor="@color/black"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/restaurant_stars"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_regular"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/restaurant_price"
-                android:text="**/"
                 android:padding="10dp"
+                android:text="**/"
+                android:textColor="@color/black"
                 android:textSize="15sp"
-                android:textColor="@color/black"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/restaurant_price" />
 
             <TextView
                 android:id="@+id/restaurant_fee"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_regular"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/restaurant_stars"
-                android:text="$123123123 delivery"
                 android:padding="10dp"
+                android:text="$123123123 delivery"
+                android:textColor="@color/black"
                 android:textSize="15sp"
-                android:textColor="@color/black"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/restaurant_stars" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 
