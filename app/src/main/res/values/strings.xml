@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Food-Order</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
+    <string name="favourites">Favourites</string>
+    <string name="explore">Explore</string>
+    <string name="cart">Cart</string>
+    <string name="sample_text">ahdgkashfgaskhdfgskdhfbgsudfhbgsodufbyo asubdfyoausi bdyfo ausyb fodaiusdyfboauisdyofiuasydofiabud byfoas udyf oabiudyfo aisudfy boiabusyd foiausydf oiasudfyiuyaodsiufyaosidfuyasouifyasob duifaskhjdf gaskhfdgkashfdgasdfhgsadf </string>
 </resources>
