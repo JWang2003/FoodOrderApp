@@ -6,54 +6,115 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.food_order.editPlaylistRecycler.DishAdapter;
-import com.example.food_order.editPlaylistRecycler.DishViewHolder;
-import com.example.food_order.restaurantRecycler.RestaurantAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class EditPlaylist extends AppCompatActivity {
 
-    // Properties
-    DatabaseAccess db;
-    ArrayList<Dish> playlistItems;
-    DishAdapter playlistItemsAdapter;
+    private DatabaseAccess db;
+    private ArrayList<Dish> mDishList;
+    private RecyclerView mRecyclerView;
+    private DishAdapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private TextView mPlaylistName;
+    private String currentPlaylistName;
 
-    // XML Views
-    RecyclerView playlistItemRecyclerView;
-    TextView playlistName;
-    Button addToPlaylistButton;
-    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_edit_playlist);
         db = DatabaseAccess.getInstance(getApplicationContext());
         Intent intent = getIntent();
-        //TODO: hardcoded restaurant for debugging
-        playlistItems = db.getDishes("TokyoJoeSushi");
+        currentPlaylistName = "oh my god please";  //intent.getStringExtra("playlistname");
+        mDishList = db.getPlaylistDishes(currentPlaylistName);
+        mPlaylistName = findViewById(R.id.playlistName);
+        mPlaylistName.setText(currentPlaylistName);
 
-        connectXMLViews();
-        setUpGridLayout();
-        playlistName.setText("todo set name from intent");
+        buildRecyclerView();
     }
 
-    public void connectXMLViews() {
-        playlistItemRecyclerView = findViewById(R.id.playlist_recycle);
-        playlistName = findViewById(R.id.playlistName);
-        addToPlaylistButton = findViewById(R.id.plusButton);
+    public void incrementCounter(int position) {
+        Dish currentDish = mDishList.get(position);
+        currentDish.mQuantity += 1;
+        mAdapter.notifyDataSetChanged();
     }
 
-    public void setUpGridLayout() {
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
-        playlistItemRecyclerView.setLayoutManager(gridLayoutManager);
-        playlistItemsAdapter = new DishAdapter(this, playlistItems);
-        playlistItemRecyclerView.setAdapter(playlistItemsAdapter);
-
+    public void decrementCounter(int position) {
+        Dish currentDish = mDishList.get(position);
+        if (currentDish.mQuantity > 0) {
+            currentDish.mQuantity -= 1;
+        }
+        mAdapter.notifyDataSetChanged();
     }
+
+    public void deleteItem(int position) {
+        mDishList.remove(position);
+        mAdapter.notifyItemRemoved(position);
+    }
+
+    public void addToCart(int position) {
+        Dish currentDish = mDishList.get(position);
+        if (currentDish.mQuantity!=0) {
+            db.addFoodToCart(currentDish, currentDish.mQuantity);
+            System.out.println(currentDish.mQuantity + "x " + currentDish.mFoodName + " added to cart");
+        }
+        System.out.println(db.getCartDishes());
+    }
+
+    public void buildRecyclerView() {
+        mRecyclerView = findViewById(R.id.playlist_recycle);
+        mRecyclerView.setHasFixedSize(false);
+        mLayoutManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new DishAdapter(mDishList);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(new DishAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+            }
+
+            @Override
+            public void onDecrementClick(int position) {
+                decrementCounter(position);
+                System.out.println("Decrement clicked at " + position);
+            }
+
+            @Override
+            public void onIncrementClick(int position) {
+                incrementCounter(position);
+                System.out.println("Increment clicked at " + position);
+            }
+
+            @Override
+            public void onDetailsClick(int position) {
+                addToCart(position);
+            }
+
+            @Override
+            public void onDeleteClick(int position) {
+                deleteItem(position);
+                System.out.println("Delete clicked at " + position);
+            }
+        });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        db.deletePlaylist(currentPlaylistName);
+        for (Dish dish : mDishList) {
+            db.addToPlaylist(currentPlaylistName, dish);
+        }
+        System.out.println("Added " + mDishList + " to playlist " + currentPlaylistName);
+    }
+
 }

@@ -59,16 +59,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/plusButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:layout_constraintEnd_toEndOf="@id/topbar"
-            app:layout_constraintBottom_toBottomOf="@id/topbar"
-            android:layout_marginRight="50dp"
-            android:text="+">
-
-        </Button>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

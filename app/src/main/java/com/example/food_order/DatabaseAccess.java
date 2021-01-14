@@ -114,16 +114,16 @@ public class DatabaseAccess {
             open();
             ContentValues contentValues = new ContentValues();
             contentValues.put("ID", quantity);
-            contentValues.put("FoodItem", dish.foodName);
+            contentValues.put("FoodItem", dish.mFoodName);
             // Extra steps to store bitmap image
-            Bitmap imageToStoreBitmap = dish.foodImage;
+            Bitmap imageToStoreBitmap = dish.mFoodImage;
             objectByteArrayOutputStream = new ByteArrayOutputStream();
             imageToStoreBitmap.compress(Bitmap.CompressFormat.JPEG, 100, objectByteArrayOutputStream);
             imageInBytes = objectByteArrayOutputStream.toByteArray();
 
             contentValues.put("FoodImage", imageInBytes);
-            contentValues.put("FoodPrice", dish.price);
-            contentValues.put("FoodDetails", dish.details);
+            contentValues.put("FoodPrice", dish.mPrice);
+            contentValues.put("FoodDetails", dish.mDetails);
             long result = db.insert("Cart", null, contentValues);
             if (result != 0) {
                 Toast.makeText(context, "Data added into our table", Toast.LENGTH_SHORT).show();
@@ -185,23 +185,23 @@ public class DatabaseAccess {
         try {
             open();
             ContentValues contentValues = new ContentValues();
-            contentValues.put("ID", 1);
+            contentValues.put("ID", dish.mQuantity);
             contentValues.put("Name", nameOfPlaylist);
-            contentValues.put("FoodItem", dish.foodName);
+            contentValues.put("FoodItem", dish.mFoodName);
             // Extra steps to store bitmap image
-            Bitmap imageToStoreBitmap = dish.foodImage;
+            Bitmap imageToStoreBitmap = dish.mFoodImage;
             objectByteArrayOutputStream = new ByteArrayOutputStream();
             imageToStoreBitmap.compress(Bitmap.CompressFormat.JPEG, 100, objectByteArrayOutputStream);
             imageInBytes = objectByteArrayOutputStream.toByteArray();
 
             contentValues.put("FoodImage", imageInBytes);
-            contentValues.put("FoodPrice", dish.price);
-            contentValues.put("FoodDetails", dish.details);
+            contentValues.put("FoodPrice", dish.mPrice);
+            contentValues.put("FoodDetails", dish.mDetails);
             long result = db.insert("Favourites", null, contentValues);
             if (result != 0) {
-                Toast.makeText(context, "Data added into our table", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Successfully saved changes", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(context, "Failed to add data", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Could not save changes!", Toast.LENGTH_SHORT).show();
             }
             close();
         }
