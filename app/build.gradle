@@ -46,4 +46,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    compile 'com.sothree.slidinguppanel:library:3.4.0'
+    implementation 'com.sothree.slidinguppanel:library:3.4.0'
 }

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.food_order.categoryRecycler.Category;
 import com.example.food_order.categoryRecycler.CategoryAdapter;
 import com.example.food_order.categoryRecycler.CategoryViewHolder;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
 
@@ -60,6 +61,13 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
         cartButton = findViewById(R.id.checkout);
         allPlaylistsButton = findViewById(R.id.view_all);
         playlistRecyclerView = findViewById(R.id.playlist_recycler);
+        SlidingUpPanelLayout slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+        slidingUpPanelLayout.setFadeOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+            }
+        });
     }
 
     private void populateCategories() {
@@ -86,8 +94,8 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
         // This gets all the restaurants in the category selected
 
         //TODO: comment for debug
-        //Intent intent = new Intent(this, RestaurantView.class);
-        Intent intent = new Intent(this, EditPlaylist.class);
+        Intent intent = new Intent(this, RestaurantView.class);
+        //Intent intent = new Intent(this, EditPlaylist.class);
         intent.putExtra("catname", currentCategory.categoryName);
         startActivity(intent);
     }
