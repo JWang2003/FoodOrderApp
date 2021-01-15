@@ -69,7 +69,7 @@
                 app:layout_constraintStart_toEndOf="@id/restaurant_price" />
 
             <TextView
-                android:id="@+id/restaurant_fee"
+                android:id="@+id/restaurant_deliveryFee"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_regular"

@@ -1,16 +1,19 @@
-package com.example.nfood_order.menuRecycler;
+package com.example.food_order.menuRecycler;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.food_order.Dish;
 import com.example.food_order.R;
 import com.example.food_order.Restaurant;
 import com.example.food_order.menuRecycler.MenuViewHolder;
@@ -18,34 +21,39 @@ import com.example.food_order.restaurantRecycler.RestaurantViewHolder;
 
 import java.util.ArrayList;
 
-public class MenuAdapter extends RecyclerView.Adapter<MenuViewHolder> {
+public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder> {
     // Properties
-    private ArrayList<Restaurant> restaurants;
+    private ArrayList<Dish> mDishList;
     private OnItemClickListener mListener;
 
     public interface OnItemClickListener {
-        void onItemClick(int position);
-        void onAddClick(int position);
+        void onItemClick();
+        void onIncrementClick();
+        void onDecrementClick();
+        void onAddToCartClick();
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) { mListener = listener; }
 
 
     public static class MenuViewHolder extends RecyclerView.ViewHolder {
-        public View itemView;
-        public TextView dishNameView;
-        public TextView descriptionView;
-        public TextView priceView;
-        public ImageView starsView;
+        public TextView dishName;
+        public ImageView dishImage;
+        public TextView dishPrice;
+        public TextView quantity;
+        public Button decrement;
+        public Button increment;
         public ImageView cartAdd;
 
-        public MenyViewHolder(View itemView, final OnItemClickListener listener) {
+        public MenuViewHolder(View itemView, final OnItemClickListener listener) {
             super(itemView);
-            //dishNameView;
-            //descriptionView;
-            //priceView;
-            //starsView;
-            //cartAdd;
+            dishName = itemView.findViewById(R.id.dish_name);
+            dishImage = itemView.findViewById(R.id.dish_image);
+            dishPrice = itemView.findViewById(R.id.dish_price);
+
+
+            cartAdd = itemView.findViewById(R.id.add_to_cart);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -58,28 +66,48 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuViewHolder> {
                     }
                 }
             });
+
+            increment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onIncrementClick(position);
+                        }
+                    }
+                }
+            });
+
+            decrement.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onDecrementClick(position);
+                        }
+                    }
+                }
+            });
+
+
             cartAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (listener != null) {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
-                            listener.onAddClick(position);
+                            listener.onAddToCartClick(position);
                         }
-
+                    }
                 }
             });
 
-
-
-
-
-
         }
-
-
-
     }
+
+    public MenuAdapter(ArrayList<Dish> dishList) {mDishList = dishList; }
 
 
 
@@ -87,19 +115,24 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuViewHolder> {
 
     @NonNull
     @Override
-    public MenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View itemView = inflater.inflate;
-        MenuViewHolder viewHolder = new
+    public MenuViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_restaurant, parent, false);
+        MenuViewHolder mvh = new MenuViewHolder(v, mListener);
+        return mvh;
     }
 
     @Override
     public void onBindViewHolder(@NonNull MenuViewHolder holder, int position) {
-
+        Dish currentItem = mDishList.get(position);
+        holder.dishName.setText(currentItem.mFoodName);
+        holder.dishImage.setImageBitmap(currentItem.mFoodImage);
+        holder.dishPrice.setText(currentItem.mPrice);
+        holder.quantity.setText(0);
     }
+
 
     @Override
     public int getItemCount() {
-        return 0;
+        mDishList.size();
     }
 }
