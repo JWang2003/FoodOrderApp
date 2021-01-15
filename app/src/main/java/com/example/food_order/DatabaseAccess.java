@@ -168,6 +168,12 @@ public class DatabaseAccess {
         return dishes;
     }
 
+    public void clearCart() {
+        open();
+        db.delete("Cart", null, null);
+        close();
+    }
+
     public void deleteFromCart(String foodName) {
         open();
         db.delete("Cart", "FoodItem = ?", new String[] {foodName});
