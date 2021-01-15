@@ -3,25 +3,37 @@ package com.example.food_order;
 import android.graphics.Bitmap;
 
 public class Dish {
-    public String foodName;
-    public Bitmap foodImage;
-    public String price;
-    public String details;
+    public int mQuantity;
+    public String mFoodName;
+    public Bitmap mFoodImage;
+    public String mPrice;
+    public String mDetails;
 
     public Dish(String foodName, Bitmap foodImage, String price, String details) {
-        this.foodName = foodName;
-        this.foodImage = foodImage;
-        this.price = price;
-        this.details = details;
+        mQuantity = 1;
+        mFoodName = foodName;
+        mFoodImage = foodImage;
+        mPrice = price;
+        mDetails = details;
     }
 
     @Override
     public String toString() {
         return "Dish{" +
-                "foodName='" + foodName + '\'' +
-                ", foodImage=" + foodImage +
-                ", price='" + price + '\'' +
-                ", details='" + details + '\'' +
+                ", quantity='" + mQuantity + '\'' +
+                "foodName='" + mFoodName + '\'' +
+                ", foodImage=" + mFoodImage +
+                ", price='" + mPrice + '\'' +
+                ", details='" + mDetails + '\'' +
                 '}';
     }
+
+    public Dish(int quantity, String foodName, Bitmap foodImage, String price, String details) {
+        mQuantity = quantity;
+        mFoodName = foodName;
+        mFoodImage = foodImage;
+        mPrice = price;
+        mDetails = details;
+    }
+
 }

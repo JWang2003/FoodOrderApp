@@ -1,6 +1,7 @@
 package com.example.food_order.menuRecycler;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ public class MenuViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     TextView descriptionView;
     TextView priceView;
     ImageView starsView;
+    ImageView cartAdd;
     OnNoteListener onNoteListener;
 
     public MenuViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
@@ -32,11 +34,14 @@ public class MenuViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         // Make item clickable
         this.onNoteListener = onNoteListener;
         itemView.setOnClickListener(this);
+
+        cartAdd.setOnClickListener(R.id.);
     }
 
     @Override
     public void onClick(View v) {
         onNoteListener.onNoteClick(getAdapterPosition());
+        cartAdd.onClick
     }
 
 

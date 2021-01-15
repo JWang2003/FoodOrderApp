@@ -1,21 +1,28 @@
 package com.example.food_order;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class DatabaseAccess {
-
+//TODO: Allow user to rename playlist?
     Context context;
     private SQLiteOpenHelper openHelper;
     private SQLiteDatabase db;
     private static com.example.food_order.DatabaseAccess instance;
     Cursor c = null;
+
+    // This is to add images to the database
+    private ByteArrayOutputStream objectByteArrayOutputStream;
+    private byte[] imageInBytes;
 
     // Private constructor so that our database is a singleton
     private DatabaseAccess(Context context) {
@@ -100,6 +107,151 @@ public class DatabaseAccess {
         }
         close();
         return dishes;
+    }
+
+    public void addFoodToCart(Dish dish, int quantity) {
+        // TODO: Do not allow repeat dishes if already in cart, simply update the quantity
+        try {
+            open();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("ID", quantity);
+            contentValues.put("FoodItem", dish.mFoodName);
+            // Extra steps to store bitmap image
+            Bitmap imageToStoreBitmap = dish.mFoodImage;
+            objectByteArrayOutputStream = new ByteArrayOutputStream();
+            imageToStoreBitmap.compress(Bitmap.CompressFormat.JPEG, 100, objectByteArrayOutputStream);
+            imageInBytes = objectByteArrayOutputStream.toByteArray();
+
+            contentValues.put("FoodImage", imageInBytes);
+            contentValues.put("FoodPrice", dish.mPrice);
+            contentValues.put("FoodDetails", dish.mDetails);
+            long result = db.insert("Cart", null, contentValues);
+            if (result != 0) {
+                Toast.makeText(context, "Data added into our table", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "Failed to add data", Toast.LENGTH_SHORT).show();
+            }
+            close();
+        }
+        catch(Exception e) {
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+            close();
+        }
+    }
+
+    public ArrayList<Dish> getCartDishes() {
+        open();
+        ArrayList<Dish> dishes = new ArrayList<>();
+        c = db.rawQuery("select * from Cart", null);
+        if(c!=null && c.getCount() > 0) {
+            while(c.moveToNext()) {
+                int quantity = c.getInt(0);
+                String name = c.getString(1);
+                byte[] image = c.getBlob(2);
+
+                Bitmap bmp;
+                if (image != null) {
+                    bmp = BitmapFactory.decodeByteArray(image, 0 , image.length);
+                } else {
+                    bmp = BitmapFactory.decodeResource(context.getResources(),
+                            R.drawable.default_image);
+                }
+                String price = c.getString(3);
+                String details = c.getString(4);
+
+                dishes.add(new Dish(quantity, name, bmp, price, details));
+            }
+        }else {
+            System.out.println("Failed to add, cursor is null or count is 0");
+        }
+        close();
+        return dishes;
+    }
+
+    public void deleteFromCart(String foodName) {
+        open();
+        db.delete("Cart", "FoodItem = ?", new String[] {foodName});
+        close();
+    }
+
+    public void updateQuantity(String foodName, int quantity) {
+        open();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("ID", quantity);
+        db.update("Cart", contentValues, "FoodItem= ?", new String[] { foodName });
+        close();
+    }
+
+    public void addToPlaylist(String nameOfPlaylist, Dish dish) {
+        try {
+            open();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("ID", dish.mQuantity);
+            contentValues.put("Name", nameOfPlaylist);
+            contentValues.put("FoodItem", dish.mFoodName);
+            // Extra steps to store bitmap image
+            Bitmap imageToStoreBitmap = dish.mFoodImage;
+            objectByteArrayOutputStream = new ByteArrayOutputStream();
+            imageToStoreBitmap.compress(Bitmap.CompressFormat.JPEG, 100, objectByteArrayOutputStream);
+            imageInBytes = objectByteArrayOutputStream.toByteArray();
+
+            contentValues.put("FoodImage", imageInBytes);
+            contentValues.put("FoodPrice", dish.mPrice);
+            contentValues.put("FoodDetails", dish.mDetails);
+            long result = db.insert("Favourites", null, contentValues);
+            if (result != 0) {
+                Toast.makeText(context, "Successfully saved changes", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "Could not save changes!", Toast.LENGTH_SHORT).show();
+            }
+            close();
+        }
+        catch(Exception e) {
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+            close();
+        }
+    }
+
+    public ArrayList<Dish> getPlaylistDishes(String nameOfPlaylist) {
+        open();
+        ArrayList<Dish> dishes = new ArrayList<>();
+        c = db.rawQuery("select * from Favourites", null);
+        c = db.rawQuery("select * from Favourites where Name = '" + nameOfPlaylist + "'", new String[]{});
+        if(c!=null && c.getCount() > 0) {
+            while(c.moveToNext()) {
+                int quantity = c.getInt(0);
+                String name = c.getString(2);
+                byte[] image = c.getBlob(3);
+
+                Bitmap bmp;
+                if (image != null) {
+                    bmp = BitmapFactory.decodeByteArray(image, 0 , image.length);
+                } else {
+                    bmp = BitmapFactory.decodeResource(context.getResources(),
+                            R.drawable.default_image);
+                }
+                String price = c.getString(4);
+                String details = c.getString(5);
+
+                dishes.add(new Dish(quantity, name, bmp, price, details));
+            }
+        }else {
+            System.out.println("Failed to add, cursor is null or count is 0");
+        }
+        close();
+        return dishes;
+    }
+
+    public void deleteFromPlaylist(String playlistName, String foodName) {
+        open();
+        db.delete("Favourites", "Name=? and FoodItem=?", new String[] {playlistName, foodName});
+        close();
+    }
+
+    public void deletePlaylist(String playlistName) {
+        open();
+        db.delete("Favourites", "Name=?", new String[] {playlistName});
+        close();
     }
 }
 

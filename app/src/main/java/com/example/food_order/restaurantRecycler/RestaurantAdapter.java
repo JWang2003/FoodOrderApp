@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.food_order.R;
 import com.example.food_order.Restaurant;
-import com.example.food_order.categoryRecycler.Category;
 
 import java.util.ArrayList;
 
@@ -45,7 +44,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantViewHolder
         holder.priceView.setText(restaurant.priceRange);
         holder.starsView.setText(restaurant.starRating);
         holder.feeView.setText(restaurant.deliveryFee);
-
     }
 
     @Override

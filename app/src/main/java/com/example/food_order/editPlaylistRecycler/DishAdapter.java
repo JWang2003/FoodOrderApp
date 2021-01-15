@@ -1,0 +1,139 @@
+package com.example.food_order.editPlaylistRecycler;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.food_order.Dish;
+import com.example.food_order.EditPlaylist;
+import com.example.food_order.R;
+
+import java.util.ArrayList;
+
+public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder> {
+    private ArrayList<Dish> mDishList;
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+        void onDecrementClick(int position);
+        void onIncrementClick(int position);
+        void onDetailsClick(int position);
+        void onDeleteClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
+
+    public static class DishViewHolder extends RecyclerView.ViewHolder {
+        public ImageView mDishImage;
+        public TextView mNameText;
+        public TextView mPriceText;
+        public Button mDecrementCounter;
+        public Button mIncrementCounter;
+        public TextView mCounterText;
+        public Button mDetailsButton;
+        public ImageButton mDeleteButton;
+
+        public DishViewHolder(View itemView, final OnItemClickListener listener) {
+            super(itemView);
+            mDishImage = itemView.findViewById(R.id.food_image);
+            mNameText = itemView.findViewById(R.id.dish_name);
+            mPriceText = itemView.findViewById(R.id.food_price);
+            mIncrementCounter = itemView.findViewById(R.id.increment_counter);
+            mDecrementCounter = itemView.findViewById(R.id.decrement_counter);
+            mCounterText = itemView.findViewById(R.id.counter);
+            mDetailsButton = itemView.findViewById(R.id.detailsbutton);
+            mDeleteButton = itemView.findViewById(R.id.delete_button);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
+            mIncrementCounter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onIncrementClick(position);
+                        }
+                    }
+                }
+            });
+            mDecrementCounter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onDecrementClick(position);
+                        }
+                    }
+                }
+            });
+            mDetailsButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onDetailsClick(position);
+                        }
+                    }
+                }
+            });
+            mDeleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onDeleteClick(position);
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    public DishAdapter(ArrayList<Dish> dishList) {
+        mDishList = dishList;
+    }
+
+    @Override
+    public DishViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dish, parent, false);
+        DishViewHolder evh = new DishViewHolder(v, mListener);
+        return evh;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull DishViewHolder holder, int position) {
+        Dish currentItem = mDishList.get(position);
+        holder.mDishImage.setImageBitmap(currentItem.mFoodImage);
+        holder.mNameText.setText(currentItem.mFoodName);
+        holder.mPriceText.setText(currentItem.mPrice);
+        holder.mCounterText.setText(String.valueOf(currentItem.mQuantity));
+    }
+
+    @Override
+    public int getItemCount() {
+        return mDishList.size();
+    }
+}
