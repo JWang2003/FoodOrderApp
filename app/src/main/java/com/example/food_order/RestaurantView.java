@@ -23,6 +23,7 @@ public class RestaurantView extends AppCompatActivity implements RestaurantViewH
 
     // Properties
     DatabaseAccess db;
+    Bitmap bmp;
     ArrayList<Restaurant> restaurants;
     RestaurantAdapter restaurantAdapter;
 
@@ -69,7 +70,8 @@ public class RestaurantView extends AppCompatActivity implements RestaurantViewH
         Restaurant currentRestaurant = restaurants.get(position);
         // This gets all the data of the restaurant selected
 //        String restaurantName = currentRestaurant.name;
-        Bitmap bmp = currentRestaurant.image;
+//        Bitmap bmp = currentRestaurant.image;
+        bmp = currentRestaurant.image;
         try { // https://stackoverflow.com/questions/11010386/passing-android-bitmap-data-within-activity-using-intent-in-android
             //Write file
             String filename = "bitmap.png";
@@ -77,7 +79,11 @@ public class RestaurantView extends AppCompatActivity implements RestaurantViewH
             bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
             //Cleanup
             stream.close();
-            bmp.recycle();
+//            if (bmp != null && !bmp.isRecycled()) {
+//                bmp.recycle();
+//                bmp = null;
+//            }
+//            bmp.recycle();
 
             //Pop intent
             Intent intent = new Intent(this, MenuView.class);

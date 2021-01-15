@@ -2,10 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
 xmlns:app="http://schemas.android.com/apk/res-auto"
-android:id="@+id/restaurant_focusview"
+android:id="@+id/page"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context=".MenuView">
+tools:context=".MenuView"
+android:clickable="true"
+android:focusable="true"
+android:focusableInTouchMode="true">
 
 <!--Top Section-->
 <LinearLayout
@@ -28,7 +31,8 @@ tools:context=".MenuView">
             android:id="@+id/restaurant_background"
             android:layout_width="match_parent"
             android:layout_height="255dp"
-            android:background="@drawable/burgerking"/>
+            android:src="@drawable/burgerking"
+            android:scaleType="centerCrop"/>
 
         <!--back button-->
         <ImageButton
@@ -52,6 +56,7 @@ tools:context=".MenuView">
 
         <!--Restaurant Name Text-->
         <TextView
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
@@ -60,6 +65,7 @@ tools:context=".MenuView">
             android:textSize="27sp"></TextView>
 
         <TextView
+            android:id="@+id/address"
             android:layout_width="153dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
@@ -96,6 +102,7 @@ tools:context=".MenuView">
             android:layout_marginLeft="14dp"
             />
         <TextView
+            android:id="@+id/stars"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="(1,892)"
@@ -104,6 +111,7 @@ tools:context=".MenuView">
             android:textSize="14sp"
             />
         <TextView
+            android:id="@+id/delivery"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="37dp"
@@ -114,6 +122,7 @@ tools:context=".MenuView">
     </LinearLayout>
 
     <ImageButton
+        android:id="@+id/yelp_link"
         android:layout_marginTop="2dp"
         android:layout_width="360dp"
         android:layout_height="60dp"
@@ -141,33 +150,20 @@ tools:context=".MenuView">
     </LinearLayout>
 </LinearLayout>
 
-<androidx.cardview.widget.CardView
-    android:layout_marginTop="12dp"
-    android:layout_marginLeft="23dp"
-    android:layout_marginBottom="30dp"
-    app:layout_constraintLeft_toLeftOf="parent"
-    android:layout_width="360dp"
-    android:layout_gravity="center_horizontal"
-    android:layout_height="250dp"
-    app:cardBackgroundColor="@color/teal_200"
-    app:cardCornerRadius="15dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    >
-</androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="360dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="23dp"
+        android:layout_marginBottom="30dp"
+        app:cardBackgroundColor="@color/teal_200"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:translationZ="-60dp"/>
 
 
-
-
-<com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:layout_width="94dp"
-    android:layout_height="79dp"
-    android:layout_marginRight="24dp"
-    android:layout_marginBottom="16dp"
-    android:background="@color/white"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    >
-</com.google.android.material.floatingactionbutton.FloatingActionButton>
 
 
 <!-- Restaurant Image Section [end]-->
@@ -179,4 +175,12 @@ tools:context=".MenuView">
 <!--        android:layout_width=""-->
 <!--        android:layout_height=""-->
 <!--        ></com.google.android.material.floatingactionbutton.FloatingActionButton>-->
+    <FrameLayout
+        android:id="@+id/web_container"
+        android:layout_width="match_parent"
+        android:layout_height="480dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

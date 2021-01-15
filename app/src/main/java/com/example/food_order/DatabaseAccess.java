@@ -13,7 +13,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class DatabaseAccess {
-
+//TODO: Allow user to rename playlist?
     Context context;
     private SQLiteOpenHelper openHelper;
     private SQLiteDatabase db;
@@ -110,6 +110,7 @@ public class DatabaseAccess {
     }
 
     public void addFoodToCart(Dish dish, int quantity) {
+        // TODO: Do not allow repeat dishes if already in cart, simply update the quantity
         try {
             open();
             ContentValues contentValues = new ContentValues();
