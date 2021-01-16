@@ -27,13 +27,18 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
     private OnItemClickListener mListener;
 
     public interface OnItemClickListener {
-        void onItemClick();
-        void onIncrementClick();
-        void onDecrementClick();
-        void onAddToCartClick();
+        void onItemClick(int position);
+
+        void onIncrementClick(int position);
+
+        void onDecrementClick(int position);
+
+        void onAddToCartClick(int position);
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener) { mListener = listener; }
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
 
 
     public static class MenuViewHolder extends RecyclerView.ViewHolder {
@@ -107,10 +112,9 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
         }
     }
 
-    public MenuAdapter(ArrayList<Dish> dishList) {mDishList = dishList; }
-
-
-
+    public MenuAdapter(ArrayList<Dish> dishList) {
+        mDishList = dishList;
+    }
 
 
     @NonNull
@@ -133,6 +137,6 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
 
     @Override
     public int getItemCount() {
-        mDishList.size();
+        return mDishList.size();
     }
 }

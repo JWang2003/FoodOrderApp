@@ -64,12 +64,12 @@ public class MenuView extends AppCompatActivity {
     }
     //TODO: Implement decrement
     public void decrement(int position) {
-
+        dishList.get(position).mQuantity -= 1;
     }
 
     //TODO: Implement increment
-    public void increment() {
-
+    public void increment(int position) {
+        dishList.get(position).mQuantity += 1;
     }
 
     //TODO: Implement addtoCart
@@ -98,23 +98,23 @@ public class MenuView extends AppCompatActivity {
 
         mAdapter.setOnItemClickListener(new MenuAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick() {
-                toDishDetails();
+            public void onItemClick(int position) {
+                toDishDetails(position);
             }
 
             @Override
-            public void onIncrementClick() {
-                increment();
+            public void onIncrementClick(int position) {
+                increment(position);
             }
 
             @Override
-            public void onDecrementClick() {
-                decrement();
+            public void onDecrementClick(int position) {
+                decrement(position);
             }
 
             @Override
-            public void onAddToCartClick() {
-                addToCart();
+            public void onAddToCartClick(int position) {
+                addToCart(position);
             }
         });
     }
