@@ -34,11 +34,10 @@ public class allPlaylist extends AppCompatActivity{
         setContentView(R.layout.activity_all_playlist);
         playlistRecyclerView = findViewById(R.id.playlist_recycle);
         db = DatabaseAccess.getInstance(getApplicationContext());
-        db.deletePlaylist("Miso Soup");
         playlists = db.getPlaylists();
         System.out.println(playlists);
         if (playlists.isEmpty()) {
-            PlaylistObject playlistObject = new PlaylistObject("My Playlist", BitmapFactory.decodeResource(this.getResources(), R.drawable.barry_20b__20benson_large), this);
+            PlaylistObject playlistObject = new PlaylistObject("Favourites", BitmapFactory.decodeResource(this.getResources(), R.drawable.barry_20b__20benson_large), this);
             playlists.add(playlistObject);
         }
 
@@ -56,7 +55,7 @@ public class allPlaylist extends AppCompatActivity{
     }
 
     public void deleteItem(int position) {
-        if (playlists.size() > 0) {
+        if (playlists.size() > 1) {
             playlists.remove(position);
             db.deletePlaylist(playlists.get(position).playlistName);
             playlistAdapter.notifyItemRemoved(position);
@@ -71,9 +70,11 @@ public class allPlaylist extends AppCompatActivity{
         playlistAdapter.setOnItemClickListener(new PlaylistAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                System.out.println("Playlist clicked at " + position);
                 Intent intent = new Intent(allPlaylist.this, EditPlaylist.class);
-                intent.putExtra("playlistname", db.getPlaylists().get(position).playlistName);
+                intent.putExtra("playlistname", playlists.get(position).playlistName);
                 startActivity(intent);
+
             }
 
             @Override
