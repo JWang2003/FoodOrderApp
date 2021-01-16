@@ -33,7 +33,7 @@ public class EditPlaylist extends AppCompatActivity {
         setContentView(R.layout.activity_edit_playlist);
         db = DatabaseAccess.getInstance(getApplicationContext());
         Intent intent = getIntent();
-        currentPlaylistName = "oh my god please";  //intent.getStringExtra("playlistname");
+        currentPlaylistName = intent.getStringExtra("playlistname");
         mDishList = db.getPlaylistDishes(currentPlaylistName);
         mPlaylistName = findViewById(R.id.playlistName);
         mPlaylistName.setText(currentPlaylistName);

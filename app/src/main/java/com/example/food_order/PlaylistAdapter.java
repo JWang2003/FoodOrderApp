@@ -17,7 +17,7 @@ import com.example.food_order.cartRecycler.CartDishAdapter;
 import java.util.ArrayList;
 
 public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder> {
-    private ArrayList<String> mPlaylistList;
+    private ArrayList<PlaylistObject> mPlaylistList;
     private PlaylistAdapter.OnItemClickListener mListener;
 
     public interface OnItemClickListener {
@@ -81,7 +81,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.Playli
         }
     }
 
-    public PlaylistAdapter(ArrayList<String> playlistList) {
+    public PlaylistAdapter(ArrayList<PlaylistObject> playlistList) {
         mPlaylistList = playlistList;
     }
 
@@ -94,14 +94,14 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.Playli
 
     @Override
     public void onBindViewHolder(@NonNull PlaylistAdapter.PlaylistViewHolder holder, int position) {
-        String currentItem = mPlaylistList.get(position);
-        //holder.mPlaylistImage.setImageBitmap(currentItem.mFoodImage);
-        holder.mPlaylistNameText.setText(currentItem.);
-        holder.mItemCountText.setText(currentItem.mPrice);
+        PlaylistObject currentItem = mPlaylistList.get(position);
+        holder.mPlaylistImage.setImageBitmap(currentItem.foodImage);
+        holder.mPlaylistNameText.setText(currentItem.playlistName);
+        holder.mItemCountText.setText(currentItem.size + " items");
     }
 
     @Override
     public int getItemCount() {
-        return mCartList.size();
+        return mPlaylistList.size();
     }
 }
