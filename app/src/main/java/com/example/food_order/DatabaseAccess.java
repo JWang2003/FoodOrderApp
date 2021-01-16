@@ -216,23 +216,35 @@ public class DatabaseAccess {
         }
     }
 
-    public ArrayList<String> getPlaylists() {
+    public ArrayList<PlaylistObject> getPlaylists() {
         open();
-        String name;
+
         ArrayList<String> playlistNames = new ArrayList<>();
+        ArrayList<PlaylistObject> playlistObjects = new ArrayList<>();
         c = db.rawQuery("select * from Favourites", null);
         if(c!=null && c.getCount() > 0) {
             while(c.moveToNext()) {
-                name = c.getString(2);
+                String name = c.getString(2);
+
                 if(!playlistNames.contains(name)) {
-                    playlistNames.add(name);
+                    byte[] image = c.getBlob(3);
+
+                    Bitmap bmp;
+                    if (image != null) {
+                        bmp = BitmapFactory.decodeByteArray(image, 0 , image.length);
+                    } else {
+                        bmp = BitmapFactory.decodeResource(context.getResources(),
+                                R.drawable.default_image);
+                    }
+                    PlaylistObject object = new PlaylistObject(name, bmp, context);
+                    playlistObjects.add(object);
                 }
             }
-        }else {
+        } else {
             System.out.println("Failed to add, cursor is null or count is 0");
         }
         close();
-        return playlistNames;
+        return playlistObjects;
     }
 
     public ArrayList<Dish> getPlaylistDishes(String nameOfPlaylist) {
