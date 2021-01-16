@@ -56,9 +56,11 @@ public class allPlaylist extends AppCompatActivity{
     }
 
     public void deleteItem(int position) {
-        playlists.remove(position);
-        db.deletePlaylist(playlists.get(position).playlistName);
-        playlistAdapter.notifyItemRemoved(position);
+        if (playlists.size() > 0) {
+            playlists.remove(position);
+            db.deletePlaylist(playlists.get(position).playlistName);
+            playlistAdapter.notifyItemRemoved(position);
+        }
     }
 
     public void buildRecyclerView() {
