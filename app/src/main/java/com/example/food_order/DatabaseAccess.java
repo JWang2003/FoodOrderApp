@@ -246,17 +246,18 @@ public class DatabaseAccess {
         }
         // TODO: Delete this when debugging over
         if(playlistObjects.isEmpty()) {
-            c = db.rawQuery("select * from Cart", null);
+            c = db.rawQuery("select * from TokyoJoeSushi", null);
             if(c!=null && c.getCount() > 0) {
                 while(c.moveToNext()) {
-                    String name = "Debug playlist";
-                    byte[] image = c.getBlob(2);
+                    String name = "Default cause playlist is empty";
+                    byte[] image = c.getBlob(1);
+
                     Bitmap bmp;
                     if (image != null) {
                         bmp = BitmapFactory.decodeByteArray(image, 0 , image.length);
                     } else {
                         bmp = BitmapFactory.decodeResource(context.getResources(),
-                                R.drawable.default_image);
+                                R.drawable.acousticbreeze);
                     }
 
                     PlaylistObject object = new PlaylistObject(name, bmp, context);
@@ -266,7 +267,8 @@ public class DatabaseAccess {
             }else {
                 System.out.println("Failed to add, cursor is null or count is 0");
             }
-        }
+            
+                }
         close();
         return playlistObjects;
     }
