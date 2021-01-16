@@ -21,7 +21,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="374dp">
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -92,7 +92,7 @@
     </androidx.cardview.widget.CardView>
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/food_image"
         android:layout_width="411dp"
         android:layout_height="380dp"
         android:scaleType="centerCrop"
@@ -113,7 +113,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/food_decrement"
             android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:background="#00FFFFFF"
@@ -123,17 +123,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/food_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1"
-            app:layout_constraintBottom_toBottomOf="@+id/button2"
-            app:layout_constraintEnd_toEndOf="@+id/button2"
+            app:layout_constraintBottom_toBottomOf="@+id/food_increment"
+            app:layout_constraintEnd_toEndOf="@+id/food_increment"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/food_increment"
             android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:background="#00FFFFFF"
