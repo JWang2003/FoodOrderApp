@@ -36,15 +36,9 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
     }
 
     @Override
-    public void onClickV(View v) {
+    public void onClick(View v) {
         onNoteListener.onNoteClick(getAdapterPosition());
     }
-
-    @Override
-    public void onClick(View view) {
-
-    }
-
 
     public interface OnNoteListener {
         void onNoteClick(int position);
