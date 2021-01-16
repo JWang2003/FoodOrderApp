@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingBottom="5dp"
-    android:paddingHorizontal="5dp"
     android:layout_margin="10dp"
-    >
+    android:orientation="vertical"
+    android:paddingHorizontal="5dp"
+    android:paddingBottom="5dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
@@ -25,25 +23,24 @@
 
 
             <ImageView
-                android:id="@+id/food_image"
+                android:id="@+id/dish_image"
                 android:layout_width="120dp"
                 android:layout_height="match_parent"
                 android:background="#EDEDED"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/delete_button"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:background="#FF0000"
                 android:src="@drawable/ic_baseline_shopping_cart_24"
-                android:background="#FF0000">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></ImageButton>
 
-            </ImageButton>
             <TextView
                 android:id="@+id/dish_name"
                 android:layout_width="wrap_content"
@@ -53,11 +50,11 @@
                 android:text="when the imposter is sus!"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                app:layout_constraintStart_toEndOf="@id/food_image"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintStart_toEndOf="@id/dish_image"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/food_price"
+                android:id="@+id/dish_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_extrabold"
@@ -65,52 +62,46 @@
                 android:text="$1293012931"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                app:layout_constraintStart_toEndOf="@id/food_image"
-                app:layout_constraintTop_toBottomOf="@id/dish_name"/>
-            
+                app:layout_constraintStart_toEndOf="@id/dish_image"
+                app:layout_constraintTop_toBottomOf="@id/dish_name" />
+
             <Button
                 android:id="@+id/decrement_counter"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:text="-"
-                app:layout_constraintStart_toEndOf="@id/food_image"
-                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginBottom="20dp"
-                android:layout_marginLeft="20dp">
-            </Button>
+                android:text="-"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/dish_image"></Button>
 
             <TextView
                 android:id="@+id/counter"
                 android:layout_width="25dp"
                 android:layout_height="50dp"
-                android:text="2"
                 android:gravity="center"
-                app:layout_constraintStart_toEndOf="@id/decrement_counter"
-                app:layout_constraintBottom_toBottomOf="@id/decrement_counter" />
+                android:text="2"
+                app:layout_constraintBottom_toBottomOf="@id/decrement_counter"
+                app:layout_constraintStart_toEndOf="@id/decrement_counter" />
 
             <Button
                 android:id="@+id/increment_counter"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_marginBottom="20dp"
                 android:text="+"
-                app:layout_constraintStart_toEndOf="@id/counter"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="20dp">
-            </Button>
+                app:layout_constraintStart_toEndOf="@id/counter"></Button>
 
             <Button
-                android:id="@+id/detailsbutton"
+                android:id="@+id/add_to_cart"
                 android:layout_width="75dp"
                 android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
                 android:text="add 2 cart"
-                app:layout_constraintStart_toEndOf="@id/increment_counter"
                 app:layout_constraintBottom_toBottomOf="@id/increment_counter"
-                android:layout_marginLeft="20dp">
-            </Button>
-
-
-
+                app:layout_constraintStart_toEndOf="@id/increment_counter"></Button>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -40,7 +40,6 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
         public Button mDecrementCounter;
         public Button mIncrementCounter;
         public TextView mCounterText;
-        public Button mDetailsButton;
         public ImageButton mDeleteButton;
 
         public DishViewHolder(View itemView, final OnItemClickListener listener) {
@@ -51,7 +50,6 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
             mIncrementCounter = itemView.findViewById(R.id.increment_counter);
             mDecrementCounter = itemView.findViewById(R.id.decrement_counter);
             mCounterText = itemView.findViewById(R.id.counter);
-            mDetailsButton = itemView.findViewById(R.id.detailsbutton);
             mDeleteButton = itemView.findViewById(R.id.delete_button);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -83,17 +81,6 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
                             listener.onDecrementClick(position);
-                        }
-                    }
-                }
-            });
-            mDetailsButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (listener != null) {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) {
-                            listener.onDetailsClick(position);
                         }
                     }
                 }

@@ -1,8 +1,10 @@
 package com.example.food_order;
 
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Dish {
+public class Dish implements Parcelable {
     public int mQuantity;
     public String mFoodName;
     public Bitmap mFoodImage;
@@ -16,6 +18,26 @@ public class Dish {
         mPrice = price;
         mDetails = details;
     }
+
+    protected Dish(Parcel in) {
+        mQuantity = in.readInt();
+        mFoodName = in.readString();
+        mFoodImage = in.readParcelable(Bitmap.class.getClassLoader());
+        mPrice = in.readString();
+        mDetails = in.readString();
+    }
+
+    public static final Creator<Dish> CREATOR = new Creator<Dish>() {
+        @Override
+        public Dish createFromParcel(Parcel in) {
+            return new Dish(in);
+        }
+
+        @Override
+        public Dish[] newArray(int size) {
+            return new Dish[size];
+        }
+    };
 
     @Override
     public String toString() {
@@ -36,4 +58,15 @@ public class Dish {
         mDetails = details;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int i) {
+        dest.writeString(mFoodName);
+        dest.writeString(mPrice);
+        dest.writeString(mDetails);
+    }
 }
