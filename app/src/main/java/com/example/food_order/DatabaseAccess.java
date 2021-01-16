@@ -249,7 +249,7 @@ public class DatabaseAccess {
             c = db.rawQuery("select * from TokyoJoeSushi", null);
             if(c!=null && c.getCount() > 0) {
                 while(c.moveToNext()) {
-                    String name = "Default cause playlist is empty";
+                    String name = c.getString(0);
                     byte[] image = c.getBlob(1);
 
                     Bitmap bmp;
