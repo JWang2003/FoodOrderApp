@@ -1,21 +1,13 @@
 package com.example.food_order;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Picture;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.food_order.cartRecycler.CartDishAdapter;
 
 import java.util.ArrayList;
 
@@ -34,10 +26,16 @@ public class allPlaylist extends AppCompatActivity{
         setContentView(R.layout.activity_all_playlist);
         playlistRecyclerView = findViewById(R.id.playlist_recycle);
         db = DatabaseAccess.getInstance(getApplicationContext());
+        ArrayList<Dish> dishes = new ArrayList<>();
+        dishes = db.getDishes("Jenjudan");
+
+        for (Dish dish : dishes) {
+            db.addToPlaylist("Monkey", dish);
+        }
         playlists = db.getPlaylists();
         System.out.println(playlists);
         if (playlists.isEmpty()) {
-            PlaylistObject playlistObject = new PlaylistObject("Favourites", BitmapFactory.decodeResource(this.getResources(), R.drawable.barry_20b__20benson_large), this);
+            PlaylistObject playlistObject = new PlaylistObject("Favourites", BitmapFactory.decodeResource(this.getResources(), R.drawable.barry_20b__20benson_large), 0);
             playlists.add(playlistObject);
         }
 
