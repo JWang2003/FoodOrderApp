@@ -167,7 +167,11 @@ public class DatabaseAccess {
         close();
         return dishes;
     }
-
+    public void clearCart() {
+        open();
+        db.delete("Cart", null, null);
+        close();
+    }
     public void deleteFromCart(String foodName) {
         open();
         db.delete("Cart", "FoodItem = ?", new String[] {foodName});
@@ -212,10 +216,28 @@ public class DatabaseAccess {
         }
     }
 
+    public ArrayList<String> getPlaylists() {
+        open();
+        String name;
+        ArrayList<String> playlistNames = new ArrayList<>();
+        c = db.rawQuery("select * from Favourites", null);
+        if(c!=null && c.getCount() > 0) {
+            while(c.moveToNext()) {
+                name = c.getString(2);
+                if(!playlistNames.contains(name)) {
+                    playlistNames.add(name);
+                }
+            }
+        }else {
+            System.out.println("Failed to add, cursor is null or count is 0");
+        }
+        close();
+        return playlistNames;
+    }
+
     public ArrayList<Dish> getPlaylistDishes(String nameOfPlaylist) {
         open();
         ArrayList<Dish> dishes = new ArrayList<>();
-        c = db.rawQuery("select * from Favourites", null);
         c = db.rawQuery("select * from Favourites where Name = '" + nameOfPlaylist + "'", new String[]{});
         if(c!=null && c.getCount() > 0) {
             while(c.moveToNext()) {
