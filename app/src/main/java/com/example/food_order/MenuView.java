@@ -1,8 +1,12 @@
 package com.example.food_order;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -17,6 +21,7 @@ import com.example.food_order.menuRecycler.MenuAdapter;
 
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 public class MenuView extends AppCompatActivity {
@@ -26,7 +31,7 @@ public class MenuView extends AppCompatActivity {
 
     Restaurant restaurant;
     yelpFragment fragment;
-    Bitmap restaurantImage = null;
+    Bitmap restaurantImage;
     FrameLayout layout;
 
 
@@ -48,41 +53,19 @@ public class MenuView extends AppCompatActivity {
     RecyclerView.LayoutManager mLayoutManager;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_view);
 
         //Main Display
-        connectDatabase();
+        getIntents();
         connectXMLViews();
 
         //RecyclerView
         createDishList();
         buildRecyclerView();
     }
-    //TODO: Implement decrement
-    public void decrement(int position) {
-        dishList.get(position).mQuantity -= 1;
-    }
-
-    //TODO: Implement increment
-    public void increment(int position) {
-        dishList.get(position).mQuantity += 1;
-    }
-
-    //TODO: Implement addtoCart
-    public void addToCart(int position){
-
-    }
-
-    //TODO: Implement toDishDetails
-    public void toDishDetails(int position){
-
-    }
-
-
 
     public void createDishList() {
         dishList= new ArrayList<>();
@@ -101,21 +84,6 @@ public class MenuView extends AppCompatActivity {
             public void onItemClick(int position) {
                 toDishDetails(position);
             }
-
-            @Override
-            public void onIncrementClick(int position) {
-                increment(position);
-            }
-
-            @Override
-            public void onDecrementClick(int position) {
-                decrement(position);
-            }
-
-            @Override
-            public void onAddToCartClick(int position) {
-                addToCart(position);
-            }
         });
     }
 
@@ -123,41 +91,7 @@ public class MenuView extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public void connectDatabase() {
+    public void getIntents() {
         // https://stackoverflow.com/questions/11010386/passing-android-bitmap-data-within-activity-using-intent-in-android
         String filename = getIntent().getStringExtra("image");
         try {
@@ -174,6 +108,7 @@ public class MenuView extends AppCompatActivity {
         System.out.println("Menu view has added: " + dishes);
         System.out.println("Restaurant added: " + restaurant);
     }
+
 
     public void connectXMLViews() {
         constraintLayout = findViewById(R.id.page);
@@ -215,4 +150,31 @@ public class MenuView extends AppCompatActivity {
 //        fragment = yelpFragment.newInstance(restaurant.yelpUrl);
 //        getSupportFragmentManager().beginTransaction().replace(R.id.web_container, fragment).commit();
 //    }
+
+
+
+
+    //TODO: Implement toDishDetails
+    public void toDishDetails(int position){
+        Dish currentDish = dishList.get(position);
+        // This gets all the data of the dish selected
+        Bitmap bmp = currentDish.mFoodImage;
+        try {
+            //Write file
+            String filename = "bitmap.png";
+            FileOutputStream stream = this.openFileOutput(filename, Context.MODE_PRIVATE);
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            //Cleanup
+            stream.close();
+
+            //Pop intent
+            Intent intent = new Intent(this, FoodView.class);
+            // All this extra code is because restaurant.image is too big, so pass it separately
+            intent.putExtra("dish", currentDish);
+            intent.putExtra("image", filename);
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
