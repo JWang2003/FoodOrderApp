@@ -2,11 +2,9 @@ package com.example.food_order;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,10 +33,8 @@ public class FoodView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_view);
-
         getIntents();
         connectXMLViews();
-
         setButtonListeners();
     }
 
@@ -54,9 +50,10 @@ public class FoodView extends AppCompatActivity {
 
         db = DatabaseAccess.getInstance(getApplicationContext());
         dish = getIntent().getParcelableExtra("dish");
-
-
-        System.out.println("Dish added: " + dish);
+        dish.mQuantity = 1;
+        dish.mFoodImage = foodImage;
+        db = DatabaseAccess.getInstance(getApplicationContext());
+        System.out.println("The dish in foodview is: " + dish);
     }
 
     public void connectXMLViews() {
@@ -67,11 +64,10 @@ public class FoodView extends AppCompatActivity {
         dishPrice = findViewById(R.id.food_price);
         dishPrice.setText(dish.mPrice);
         dishQuantity = findViewById(R.id.food_quantity);
-        dishQuantity.setText(dish.mQuantity);
-
+        dishQuantity.setText(String.valueOf(dish.mQuantity));
         increment = findViewById(R.id.food_increment);
         decrement = findViewById(R.id.food_decrement);
-        addToCart = findViewById(R.id.add_to_cart);
+        addToCart = findViewById(R.id.to_cart);
     }
 
     public void setButtonListeners() {
@@ -79,13 +75,17 @@ public class FoodView extends AppCompatActivity {
         increment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dish.mQuantity -= 1;
+                dish.mQuantity += 1;
+                dishQuantity.setText(String.valueOf(dish.mQuantity));
             }
         });
         decrement.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dish.mQuantity += 1;
+                if (dish.mQuantity > 1) {
+                    dish.mQuantity -= 1;
+                    dishQuantity.setText(String.valueOf(dish.mQuantity));
+                }
             }
         }));
         addToCart.setOnClickListener(new View.OnClickListener() {

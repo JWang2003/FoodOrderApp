@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -17,14 +15,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.food_order.menuRecycler.MenuAdapter;
 
+import com.example.food_order.menuRecycler.MenuAdapter;
+import com.example.food_order.menuRecycler.MenuViewHolder;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 
-public class MenuView extends AppCompatActivity {
+public class MenuView extends AppCompatActivity implements MenuViewHolder.OnNoteListener {
 
     DatabaseAccess db;
     ArrayList<Dish> dishes;
@@ -47,11 +46,8 @@ public class MenuView extends AppCompatActivity {
     ConstraintLayout constraintLayout;
 
     // RecyclerView
-    ArrayList<Dish> dishList;
     RecyclerView mRecyclerView;
     MenuAdapter mAdapter;
-    RecyclerView.LayoutManager mLayoutManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,34 +58,17 @@ public class MenuView extends AppCompatActivity {
         getIntents();
         connectXMLViews();
 
-        //RecyclerView
-        createDishList();
         buildRecyclerView();
-    }
-
-    public void createDishList() {
-        dishList= new ArrayList<>();
     }
 
     public void buildRecyclerView() {
         mRecyclerView = findViewById(R.id.menu_recycler_view);
-        mRecyclerView.setHasFixedSize(false);
-        mLayoutManager = new LinearLayoutManager(this);
-        mAdapter = new MenuAdapter(dishList);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        LinearLayoutManager LayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(LayoutManager);
+        mAdapter = new MenuAdapter(this, dishes, this);
         mRecyclerView.setAdapter(mAdapter);
-
-        mAdapter.setOnItemClickListener(new MenuAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                toDishDetails(position);
-            }
-        });
+        mRecyclerView.setHasFixedSize(true);
     }
-
-
-
-
 
     public void getIntents() {
         // https://stackoverflow.com/questions/11010386/passing-android-bitmap-data-within-activity-using-intent-in-android
@@ -109,7 +88,6 @@ public class MenuView extends AppCompatActivity {
         System.out.println("Restaurant added: " + restaurant);
         connectXMLViews();
     }
-
 
     public void connectXMLViews() {
         constraintLayout = findViewById(R.id.page);
@@ -143,21 +121,15 @@ public class MenuView extends AppCompatActivity {
 //        yelpLink.setOnClickListener(v -> getWebFragment());
     }
 
-
-
-
 //    public void getWebFragment(){
 //        layout.setVisibility(layout.VISIBLE);
 //        fragment = yelpFragment.newInstance(restaurant.yelpUrl);
 //        getSupportFragmentManager().beginTransaction().replace(R.id.web_container, fragment).commit();
 //    }
 
-
-
-
-    //TODO: Implement toDishDetails
-    public void toDishDetails(int position){
-        Dish currentDish = dishList.get(position);
+    @Override
+    public void onNoteClick(int position) {
+        Dish currentDish = dishes.get(position);
         // This gets all the data of the dish selected
         Bitmap bmp = currentDish.mFoodImage;
         try {

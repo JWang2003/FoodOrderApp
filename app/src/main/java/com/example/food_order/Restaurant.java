@@ -1,6 +1,5 @@
 package com.example.food_order;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -8,8 +7,6 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 
 public class Restaurant implements Parcelable {
-
-    Context context;
 
     // Displayed information
     public String name;
@@ -53,10 +50,6 @@ public class Restaurant implements Parcelable {
             return new Restaurant[size];
         }
     };
-
-    public void populateMenu(DatabaseAccess db) {
-        menu = db.getDishes(name);
-    }
 
     @Override
     public String toString() {

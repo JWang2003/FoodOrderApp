@@ -138,6 +138,7 @@ public class DatabaseAccess {
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
             close();
         }
+        System.out.println("In the cart are: " + getCartDishes());
     }
 
     public ArrayList<Dish> getCartDishes() {

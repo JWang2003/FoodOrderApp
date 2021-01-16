@@ -20,9 +20,7 @@ public class Dish implements Parcelable {
     }
 
     protected Dish(Parcel in) {
-        mQuantity = in.readInt();
         mFoodName = in.readString();
-        mFoodImage = in.readParcelable(Bitmap.class.getClassLoader());
         mPrice = in.readString();
         mDetails = in.readString();
     }

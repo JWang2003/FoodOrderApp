@@ -144,7 +144,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/to_cart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -165,7 +165,7 @@
         android:tint="#000000"
         android:translationZ="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button3"
+        app:layout_constraintStart_toEndOf="@+id/to_cart"
         app:srcCompat="@drawable/ic_baseline_bookmark_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
