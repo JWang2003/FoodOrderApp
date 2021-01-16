@@ -60,6 +60,7 @@ public class MenuView extends AppCompatActivity {
         System.out.println("Menu view has added: " + dishes);
         System.out.println("Restaurant added: " + restaurant);
 
+
         connectXMLViews();
     }
 

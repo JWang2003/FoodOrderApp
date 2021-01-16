@@ -15,4 +15,13 @@ public class PlaylistObject {
         this.foodImage = foodImage;
         this.size = db.getPlaylistDishes(playlistName).size();
     }
+
+    @Override
+    public String toString() {
+        return "PlaylistObject{" +
+                ", playlistName='" + playlistName + '\'' +
+                ", foodImage=" + foodImage +
+                ", size=" + size +
+                '}';
+    }
 }

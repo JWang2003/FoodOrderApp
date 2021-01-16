@@ -4,44 +4,104 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.food_order.cartRecycler.CartDishAdapter;
+
 import java.util.ArrayList;
 
-public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistViewHolder> {
+public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder> {
+    private ArrayList<PlaylistObject> mPlaylistList;
+    private PlaylistAdapter.OnItemClickListener mListener;
 
-    private PlaylistViewHolder.OnNoteListener mOnNoteListener;
-
-    // Properties
-    Context context;
-    ArrayList<Playlist> playlists;
-
-    public PlaylistAdapter(Context context, ArrayList<Playlist> playlists, PlaylistViewHolder.OnNoteListener onNoteListener) {
-        this.context = context;
-        this.playlists = playlists;
-        this.mOnNoteListener = onNoteListener;
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+        void onOrderClick(int position);
+        void onDeleteClick(int position);
     }
 
-    @NonNull
-    @Override
-    public PlaylistViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View itemView = inflater.inflate(R.layout.item_playlists, parent, false);
-        PlaylistViewHolder viewHolder = new PlaylistViewHolder(itemView, mOnNoteListener);
-        return viewHolder;
+    public void setOnItemClickListener(PlaylistAdapter.OnItemClickListener listener) {
+        mListener = listener;
+    }
+
+    public static class PlaylistViewHolder extends RecyclerView.ViewHolder {
+        public ImageView mPlaylistImage;
+        public TextView mPlaylistNameText;
+        public TextView mItemCountText;
+        public Button mOrderButton;
+        public ImageButton mDeleteButton;
+
+        public PlaylistViewHolder(View itemView, final PlaylistAdapter.OnItemClickListener listener) {
+            super(itemView);
+            mPlaylistImage = itemView.findViewById(R.id.image_playlist);
+            mPlaylistNameText = itemView.findViewById(R.id.NameView);
+            mItemCountText = itemView.findViewById(R.id.itemcount);
+            mOrderButton = itemView.findViewById(R.id.orderbutton);
+            mDeleteButton = itemView.findViewById(R.id.deleteplaylistbutton);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
+            mOrderButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onOrderClick(position);
+                        }
+                    }
+                }
+            });
+            mDeleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onDeleteClick(position);
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    public PlaylistAdapter(ArrayList<PlaylistObject> playlistList) {
+        mPlaylistList = playlistList;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PlaylistViewHolder holder, int position) {
-        Playlist playlist = playlists.get(position);
-        holder.nameView.setText(playlist.playlistName);
-        holder.imageView.setImageResource(playlist.playlistPicture);
+    public PlaylistAdapter.PlaylistViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_playlists, parent, false);
+        PlaylistAdapter.PlaylistViewHolder evh = new PlaylistAdapter.PlaylistViewHolder(v, mListener);
+        return evh;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull PlaylistAdapter.PlaylistViewHolder holder, int position) {
+        PlaylistObject currentItem = mPlaylistList.get(position);
+        holder.mPlaylistImage.setImageBitmap(currentItem.foodImage);
+        holder.mPlaylistNameText.setText(currentItem.playlistName);
+        holder.mItemCountText.setText(currentItem.size + " items");
     }
 
     @Override
     public int getItemCount() {
-        return playlists.size();
+        return mPlaylistList.size();
     }
 }

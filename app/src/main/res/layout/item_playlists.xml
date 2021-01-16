@@ -37,18 +37,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageButton
+            android:id="@+id/deleteplaylistbutton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_baseline_shopping_cart_24"
+            android:background="#FF0000">
+
+        </ImageButton>
+
         <TextView
+            android:id="@+id/itemcount"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="120dp"
-            android:text="0 Items"
+            android:text="#OF ITEMS"
             android:textColor="#FFFFFF"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:id="@+id/orderbutton"
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:layout_marginTop="105dp"
