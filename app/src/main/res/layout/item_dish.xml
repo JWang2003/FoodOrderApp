@@ -34,6 +34,16 @@
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher"/>
 
+            <ImageButton
+                android:id="@+id/delete_button"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/ic_baseline_shopping_cart_24"
+                android:background="#FF0000">
+
+            </ImageButton>
             <TextView
                 android:id="@+id/dish_name"
                 android:layout_width="wrap_content"
