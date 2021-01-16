@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,7 +40,7 @@ public class MenuView extends AppCompatActivity implements MenuViewHolder.OnNote
     TextView restName;
     TextView restAddress;
     TextView restPrice;
-    TextView restStars;
+    RatingBar restStars;
     TextView restDeliveryFee;
     ImageButton yelpLink;
 
@@ -102,6 +103,13 @@ public class MenuView extends AppCompatActivity implements MenuViewHolder.OnNote
             }
         });
 //        layout = findViewById(R.id.web_container);
+        int Stars = 0;
+        String [] starArray = restaurant.starRating.split("");
+        for (String s : starArray) {
+            if (s.equals("*")) {
+                Stars++;
+            }
+        }
         restImage = findViewById(R.id.restaurant_background);
         restImage.setImageBitmap(restaurantImage);
         restName = findViewById(R.id.name);
@@ -110,9 +118,8 @@ public class MenuView extends AppCompatActivity implements MenuViewHolder.OnNote
         restAddress.setText(restaurant.address);
         restPrice = findViewById(R.id.priceSymbol);
         restPrice.setText(restaurant.priceRange);
-        // TODO: Make stars actually be stars
         restStars = findViewById(R.id.stars);
-        restStars.setText(restaurant.starRating);
+        restStars.setRating(Stars);
         restDeliveryFee = findViewById(R.id.delivery);
         restDeliveryFee.setText(restaurant.deliveryFee);
 

@@ -39,10 +39,18 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantViewHolder
     @Override
     public void onBindViewHolder(@NonNull RestaurantViewHolder holder, int position) {
         Restaurant restaurant = restaurants.get(position);
+        int Stars = 0;
+        String [] starArray = restaurant.starRating.split("");
+        for (String s : starArray) {
+            if (s.equals("*")) {
+                Stars++;
+            }
+        }
         holder.imageView.setImageBitmap(restaurant.image);
         holder.nameView.setText(restaurant.name);
         holder.priceView.setText(restaurant.priceRange);
-        holder.starsView.setText(restaurant.starRating);
+        holder.starsView.setRating(Stars);
+        System.out.println(Stars);
         holder.feeView.setText(restaurant.deliveryFee);
     }
 
