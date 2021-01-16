@@ -31,7 +31,7 @@
                 android:background="#EDEDED"
                 app:layout_constraintTop_toTopOf="parent"
                 android:scaleType="centerCrop"
-                ></ImageView>
+                />
 
             <TextView
                 android:id="@+id/restaurant_name"
@@ -46,7 +46,7 @@
 
             <TextView
                 android:id="@+id/restaurant_price"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_regular"
                 android:padding="10dp"
@@ -56,17 +56,21 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:id="@+id/restaurant_stars"
-                android:layout_width="100dp"
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:numStars = "5"
+                android:stepSize="0.1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/open_sans_regular"
-                android:padding="10dp"
-                android:text="**/"
-                android:textColor="@color/black"
-                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/restaurant_price" />
+                app:layout_constraintStart_toEndOf="@+id/restaurant_price"
+                app:layout_constraintTop_toBottomOf="@+id/restaurant_name"
+                android:clickable="false"
+                android:focusableInTouchMode="false"
+                android:focusable="false"
+                android:isIndicator="true"
+                style="?android:attr/ratingBarStyleSmall"
+                />
 
             <TextView
                 android:id="@+id/restaurant_deliveryFee"
@@ -78,7 +82,7 @@
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/restaurant_stars" />
+                app:layout_constraintStart_toEndOf="@+id/ratingBar" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
