@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SearchView;
@@ -43,6 +44,16 @@ public class RestaurantView extends AppCompatActivity implements RestaurantViewH
         String categoryName = intent.getStringExtra("catname");
         restaurants = db.getRestaurants(categoryName);
         System.out.println("Restaurant view:" + restaurants);
+        cartButton = findViewById(R.id.checkout);
+        cartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!db.getCartDishes().isEmpty()) {
+                    Intent intent = new Intent(RestaurantView.this, CheckoutView.class);
+                    startActivity(intent);
+                }
+            }
+        });
 
         connectXMLViews();
         setUpGridLayout();
@@ -52,7 +63,6 @@ public class RestaurantView extends AppCompatActivity implements RestaurantViewH
         restaurantsRecyclerView = findViewById(R.id.restaurants_recycle);
         restaurantImage = findViewById(R.id.image);
         searchView = findViewById(R.id.search_bar);
-        cartButton = findViewById(R.id.checkout);
         resultsText = findViewById(R.id.results_text);
     }
 

@@ -107,6 +107,7 @@ public class MenuView extends AppCompatActivity {
         dishes = db.getDishes(restaurant.name);
         System.out.println("Menu view has added: " + dishes);
         System.out.println("Restaurant added: " + restaurant);
+        connectXMLViews();
     }
 
 

@@ -35,6 +35,13 @@
                 android:textSize="30dp" />
         </LinearLayout>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cart_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="370dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
     </LinearLayout>
 
     <androidx.cardview.widget.CardView

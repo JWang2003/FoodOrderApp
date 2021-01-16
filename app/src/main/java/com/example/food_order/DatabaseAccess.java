@@ -168,6 +168,12 @@ public class DatabaseAccess {
         return dishes;
     }
 
+    public void clearCart() {
+        open();
+        db.delete("Cart", null, null);
+        close();
+    }
+
     public void deleteFromCart(String foodName) {
         open();
         db.delete("Cart", "FoodItem = ?", new String[] {foodName});
@@ -212,10 +218,64 @@ public class DatabaseAccess {
         }
     }
 
+    public ArrayList<PlaylistObject> getPlaylists() {
+        open();
+        ArrayList<String> playlistNames = new ArrayList<>();
+        ArrayList<PlaylistObject> playlistObjects = new ArrayList<>();
+        c = db.rawQuery("select * from Favourites", null);
+        if(c!=null && c.getCount() > 0) {
+            while(c.moveToNext()) {
+                String name = c.getString(2);
+
+                if(!playlistNames.contains(name)) {
+                    byte[] image = c.getBlob(3);
+
+                    Bitmap bmp;
+                    if (image != null) {
+                        bmp = BitmapFactory.decodeByteArray(image, 0 , image.length);
+                    } else {
+                        bmp = BitmapFactory.decodeResource(context.getResources(),
+                                R.drawable.default_image);
+                    }
+                    PlaylistObject object = new PlaylistObject(name, bmp, context);
+                    playlistObjects.add(object);
+                }
+            }
+        } else {
+            System.out.println("Failed to add, cursor is null or count is 0");
+        }
+        // TODO: Delete this when debugging over
+        if(playlistObjects.isEmpty()) {
+            c = db.rawQuery("select * from TokyoJoeSushi", null);
+            if(c!=null && c.getCount() > 0) {
+                while(c.moveToNext()) {
+                    String name = c.getString(0);
+                    byte[] image = c.getBlob(1);
+
+                    Bitmap bmp;
+                    if (image != null) {
+                        bmp = BitmapFactory.decodeByteArray(image, 0 , image.length);
+                    } else {
+                        bmp = BitmapFactory.decodeResource(context.getResources(),
+                                R.drawable.acousticbreeze);
+                    }
+
+                    PlaylistObject object = new PlaylistObject(name, bmp, context);
+                    playlistObjects.add(object);
+                    System.out.println("Used the debugging playlist as there was nothing in playlist");
+                }
+            }else {
+                System.out.println("Failed to add, cursor is null or count is 0");
+            }
+            
+                }
+        close();
+        return playlistObjects;
+    }
+
     public ArrayList<Dish> getPlaylistDishes(String nameOfPlaylist) {
         open();
         ArrayList<Dish> dishes = new ArrayList<>();
-        c = db.rawQuery("select * from Favourites", null);
         c = db.rawQuery("select * from Favourites where Name = '" + nameOfPlaylist + "'", new String[]{});
         if(c!=null && c.getCount() > 0) {
             while(c.moveToNext()) {

@@ -54,6 +54,15 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
                 startActivity(intent);
             }
         });
+        cartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!db.getCartDishes().isEmpty()) {
+                    Intent intent = new Intent(MainActivity.this, CheckoutView.class);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     public void connectXMLViews() {
@@ -96,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
         Category currentCategory = categories.get(position);
         // This gets all the restaurants in the category selected
 
-        //TODO: comment for debug
+
         Intent intent = new Intent(this, RestaurantView.class);
         intent.putExtra("catname", currentCategory.categoryName);
         startActivity(intent);
