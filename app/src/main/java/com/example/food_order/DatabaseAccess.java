@@ -220,7 +220,6 @@ public class DatabaseAccess {
 
     public ArrayList<PlaylistObject> getPlaylists() {
         open();
-
         ArrayList<String> playlistNames = new ArrayList<>();
         ArrayList<PlaylistObject> playlistObjects = new ArrayList<>();
         c = db.rawQuery("select * from Favourites", null);
@@ -244,6 +243,29 @@ public class DatabaseAccess {
             }
         } else {
             System.out.println("Failed to add, cursor is null or count is 0");
+        }
+        // TODO: Delete this when debugging over
+        if(playlistObjects.isEmpty()) {
+            c = db.rawQuery("select * from Cart", null);
+            if(c!=null && c.getCount() > 0) {
+                while(c.moveToNext()) {
+                    String name = "Debug playlist";
+                    byte[] image = c.getBlob(2);
+                    Bitmap bmp;
+                    if (image != null) {
+                        bmp = BitmapFactory.decodeByteArray(image, 0 , image.length);
+                    } else {
+                        bmp = BitmapFactory.decodeResource(context.getResources(),
+                                R.drawable.default_image);
+                    }
+
+                    PlaylistObject object = new PlaylistObject(name, bmp, context);
+                    playlistObjects.add(object);
+                    System.out.println("Used the debugging playlist as there was nothing in playlist");
+                }
+            }else {
+                System.out.println("Failed to add, cursor is null or count is 0");
+            }
         }
         close();
         return playlistObjects;
