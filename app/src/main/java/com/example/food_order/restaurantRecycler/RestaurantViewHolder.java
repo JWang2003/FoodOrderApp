@@ -28,7 +28,7 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
         nameView = itemView.findViewById(R.id.restaurant_name);
         priceView = itemView.findViewById(R.id.restaurant_price);
         starsView = itemView.findViewById(R.id.restaurant_stars);
-        feeView = itemView.findViewById(R.id.restaurant_fee);
+        feeView = itemView.findViewById(R.id.restaurant_deliveryFee);
 
         // Make item clickable
         this.onNoteListener = onNoteListener;
@@ -38,6 +38,11 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
     @Override
     public void onClickV(View v) {
         onNoteListener.onNoteClick(getAdapterPosition());
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 
 
