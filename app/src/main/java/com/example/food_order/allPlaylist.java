@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class allPlaylist extends AppCompatActivity implements PlaylistViewHolder.OnNoteListener{
+public class allPlaylist extends AppCompatActivity{
 
     RecyclerView playlistRecyclerView;
     ImageButton plusButton;
-    ArrayList<Playlist> playlists;
+    ArrayList<String> playlists;
     PlaylistAdapter playlistAdapter;
     DatabaseAccess db;
 
@@ -23,18 +23,51 @@ public class allPlaylist extends AppCompatActivity implements PlaylistViewHolder
         setContentView(R.layout.activity_all_playlist);
         plusButton = findViewById(R.id.plus);
         playlistRecyclerView = findViewById(R.id.playlist_recycle);
-        playlists = new ArrayList<Playlist>();
-        playlists.add(new Playlist("American", R.drawable.americanfood));
         db = DatabaseAccess.getInstance(getApplicationContext());
+        playlists = db.getPlaylists();
         setUpGridLayout();
+
+    }
+
+    public void addPlaylistToCart(int position) {
+        ArrayList<Dish> playlistDishes = db.getPlaylistDishes(playlists.get(position));
+        for (Dish dish : playlistDishes) {
+            db.addFoodToCart(dish, dish.mQuantity);
+        }
+    }
+
+    public void deleteItem(int position) {
+        playlists.remove(position);
+        playlistAdapter.notifyItemRemoved(position);
     }
 
     public void setUpGridLayout() {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
         playlistRecyclerView.setLayoutManager(gridLayoutManager);
-        playlistAdapter = new PlaylistAdapter(this, playlists, this);
+        playlistAdapter = new PlaylistAdapter(playlists);
         playlistRecyclerView.setAdapter(playlistAdapter);
         playlistRecyclerView.setHasFixedSize(true);
+    }
+
+    public void buildRecyclerView() {
+        playlistAdapter.setOnItemClickListener(new PlaylistAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+            }
+
+            @Override
+            public void onDeleteClick(int position) {
+                deleteItem(position);
+                System.out.println("Delete clicked at " + position);
+            }
+
+            @Override
+            public void onOrderClick(int position) {
+                addPlaylistToCart(position);
+                System.out.println("Increment clicked at " + position);
+            }
+        });
     }
 
     @Override
