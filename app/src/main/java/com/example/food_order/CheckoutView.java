@@ -4,17 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.food_order.cartRecycler.CartDishAdapter;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class CheckoutView extends AppCompatActivity {
@@ -27,7 +25,7 @@ public class CheckoutView extends AppCompatActivity {
     private TextView mSubtotalView;
     private TextView mTaxView;
     private TextView mTotalPriceView;
-    private Button checkoutButton;
+    private ImageButton checkoutButton;
     private double subtotal = 0.00;
 
 
@@ -72,7 +70,7 @@ public class CheckoutView extends AppCompatActivity {
                 db.clearCart();
                 mCartList.clear();
                 mAdapter.notifyDataSetChanged();
-                Toast.makeText(CheckoutView.this, "Order successfully placed! ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CheckoutView.this, "Order successfully placed!", Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(CheckoutView.this, MainActivity.class);
                 startActivity(intent);

@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.food_order.R;
+
 public class RestaurantViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     // Properties

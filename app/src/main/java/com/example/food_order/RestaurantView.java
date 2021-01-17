@@ -64,6 +64,7 @@ public class RestaurantView extends AppCompatActivity implements RestaurantViewH
         restaurantImage = findViewById(R.id.image);
         searchView = findViewById(R.id.search_bar);
         resultsText = findViewById(R.id.results_text);
+        resultsText.setText(restaurants.size() + " restaurants found");
     }
 
     public void setUpGridLayout() {

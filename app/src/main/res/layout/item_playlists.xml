@@ -1,91 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="340dp"
-    android:layout_height="175dp"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_margin="35dp"
-    app:cardCornerRadius="25dp">
+    android:padding="13dp"
+    android:layout_centerHorizontal="true">
 
-    <ImageView
-        android:id="@+id/image_playlist"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:translationZ="-90dp" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="350dp"
+        android:layout_height="175dp"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        app:cardCornerRadius="25dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#56587E52"
-        android:translationZ="10dp"
-        >
+        <ImageView
+            android:id="@+id/image_playlist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:translationZ="-90dp" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/NameView"
-            android:layout_width="260dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="20dp"
-            android:text="Playlist Name"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#60000000"
+            android:translationZ="10dp"
+            >
 
-        <TextView
-            android:id="@+id/itemcount"
-            android:layout_width="260dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="120dp"
-            android:text="#OF ITEMS"
-            android:textColor="#FFFFFF"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/NameView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp"
+                android:text="%PLNAME%"
+                android:textColor="#FFFFFF"
+                android:textSize="25sp"
+                android:fontFamily="sans-serif-black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="105dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:background="#36AE5F"
-            android:shadowColor="#36AE5F"
-            app:cardBackgroundColor="#36AE5F"
-            app:cardCornerRadius="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                android:id="@+id/itemcount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp"
+                android:text="%ITEMCOUNT%"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
-            <Button
-                android:id="@+id/orderbutton"
-                android:layout_width="100dp"
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp"
+                android:background="#36AE5F"
+                app:cardBackgroundColor="#36AE5F"
+                app:cardCornerRadius="100dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <Button
+                    android:id="@+id/orderbutton"
+                    android:layout_width="120dp"
+                    android:layout_height="60dp"
+                    android:background="#00FFFFFF"
+                    android:text="Order"
+                    android:textColor="#FFFFFF" />
+            </androidx.cardview.widget.CardView>
+
+            <ImageButton
+                android:id="@+id/deleteplaylistbutton"
+                android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="#00FFFFFF"
-                android:text="Order"
-                android:textColor="#FFFFFF" />
-        </androidx.cardview.widget.CardView>
+                android:layout_margin="25dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_baseline_delete_24"
+                android:scaleType="fitCenter"
+                android:tint="#AE3636"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:id="@+id/deleteplaylistbutton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:background="#00982727"
-            android:src="@drawable/ic_baseline_delete_24"
-            android:tint="#FFFFFF"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            </ImageButton>
 
-        </ImageButton>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </androidx.cardview.widget.CardView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.cardview.widget.CardView>
+</LinearLayout>

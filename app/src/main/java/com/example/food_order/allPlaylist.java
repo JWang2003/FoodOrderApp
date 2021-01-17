@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -14,7 +15,6 @@ import java.util.ArrayList;
 public class allPlaylist extends AppCompatActivity{
 
     RecyclerView playlistRecyclerView;
-    ImageButton plusButton;
     ArrayList<PlaylistObject> playlists;
     PlaylistAdapter playlistAdapter;
     DatabaseAccess db;
@@ -48,7 +48,7 @@ public class allPlaylist extends AppCompatActivity{
         System.out.println(playlists);
         // Default playlist when user has no playlists
         if (playlists.isEmpty()) {
-            PlaylistObject playlistObject = new PlaylistObject("You do not currently have any playlists!", BitmapFactory.decodeResource(this.getResources(), R.drawable.barry_20b__20benson_large));
+            PlaylistObject playlistObject = new PlaylistObject("", BitmapFactory.decodeResource(this.getResources(), R.drawable.logo));
             playlists.add(playlistObject);
         }
         // Set the size of each playlist
@@ -63,6 +63,7 @@ public class allPlaylist extends AppCompatActivity{
         for (Dish dish : playlistDishes) {
             if (dish.mQuantity > 0) {
                 db.addFoodToCart(dish, dish.mQuantity);
+                Toast.makeText(allPlaylist.this, ("Added playlist " + playlists.get(position).playlistName + " to Cart"), Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -73,7 +74,7 @@ public class allPlaylist extends AppCompatActivity{
             playlists.remove(position);
             playlistAdapter.notifyItemRemoved(position);
         } else {
-            PlaylistObject playlistObject = new PlaylistObject("You do not currently have any playlists!", BitmapFactory.decodeResource(this.getResources(), R.drawable.barry_20b__20benson_large));
+            PlaylistObject playlistObject = new PlaylistObject("", BitmapFactory.decodeResource(this.getResources(), R.drawable.logo));
             playlists.set(position, playlistObject);
             playlistAdapter.notifyItemChanged(position);
         }

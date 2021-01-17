@@ -1,117 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:paddingHorizontal="5dp"
-    android:paddingBottom="5dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:padding="13dp"
+    android:layout_centerHorizontal="true"
+    >
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
-        android:layout_width="380dp"
+        android:layout_width="350dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
-        android:background="@color/teal_200"
-        app:cardBackgroundColor="#EDEDED"
         app:cardCornerRadius="25dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="#e1e1e1"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
             <ImageView
                 android:id="@+id/dish_image"
-                android:layout_width="120dp"
+                android:layout_width="125dp"
                 android:layout_height="match_parent"
-                android:background="#EDEDED"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/ic_launcher"
+                android:background="#e1e1e1"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher"/>
 
             <ImageButton
                 android:id="@+id/delete_button"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="7dp"
-                android:layout_marginEnd="7dp"
-                android:layout_marginRight="7dp"
-                android:background="#00FF0000"
+                android:layout_margin="25dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_baseline_delete_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></ImageButton>
+                android:tint="#AE3636"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/dish_name"
-                android:layout_width="200dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/open_sans_regular"
-                android:padding="10dp"
-                android:text="when the imposter is sus!"
-                android:textColor="@color/black"
-                android:textSize="15dp"
-                android:textStyle="bold"
+                android:layout_margin="25dp"
+                android:text="%FOODNAME%"
+                android:textColor="#4b4b4b"
+                android:textSize="20sp"
+                android:gravity="center"
                 app:layout_constraintStart_toEndOf="@id/dish_image"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/dish_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="@font/open_sans_extrabold"
-                android:padding="10dp"
-                android:text="$1293012931"
+                android:text="%PRICE%"
                 android:textColor="#AE3636"
-                android:textSize="30dp"
+                android:fontFamily="sans-serif-black"
+                android:textSize="35dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/dish_image"
                 app:layout_constraintTop_toBottomOf="@id/dish_name" />
 
-            <Button
-                android:id="@+id/decrement_counter"
-                android:layout_width="50dp"
+            <androidx.cardview.widget.CardView
+                android:layout_width="120dp"
                 android:layout_height="50dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="20dp"
-                android:text="-"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/dish_image"></Button>
+                android:background="#FFFFFF"
+                app:cardCornerRadius="25dp"
+                android:layout_margin="25dp"
+                app:layout_constraintStart_toEndOf="@id/dish_image"
+                app:layout_constraintBottom_toBottomOf="parent">
 
-            <TextView
-                android:id="@+id/counter"
-                android:layout_width="25dp"
-                android:layout_height="50dp"
-                android:gravity="center"
-                android:text="2"
-                app:layout_constraintBottom_toBottomOf="@id/decrement_counter"
-                app:layout_constraintStart_toEndOf="@id/decrement_counter" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:translationZ="10dp">
 
-            <Button
-                android:id="@+id/increment_counter"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginBottom="20dp"
-                android:text="+"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/counter"></Button>
+                    <Button
+                        android:id="@+id/decrement_counter"
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:background="#fafafa"
+                        android:text="−"
+                        android:textSize="15sp"
+                        android:gravity="center"
+                        android:textColor="#000000"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/add_to_cart"
-                android:layout_width="80dp"
+                    <TextView
+                        android:id="@+id/counter"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:text="1"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        android:textColor="#000000"
+                        android:background="#fafafa"
+                        app:layout_constraintEnd_toEndOf="@id/increment_counter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/increment_counter"
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:background="#fafafa"
+                        android:text="+"
+                        android:textSize="15sp"
+                        android:textColor="#000000"
+                        android:gravity="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="Add to cart"
-                app:layout_constraintBottom_toBottomOf="@id/increment_counter"
-                app:layout_constraintStart_toEndOf="@id/increment_counter"></Button>
+                app:cardCornerRadius="25dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/dish_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="25dp"
+                android:layout_margin="25dp">
 
+                <ImageButton
+                    android:id="@+id/add_to_cart"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="#36AE5F"
+                    android:src="@drawable/ic_baseline_shopping_cart_24"
+                    android:tint="#e1e1e1"
+                    android:scaleType="fitCenter"
+                    android:padding="10dp"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold" />
+
+            </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -5,7 +5,7 @@
     android:id="@+id/page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#FAFAFA"
     android:clickable="true"
     android:focusable="true"
     android:focusableInTouchMode="true"
@@ -35,114 +35,110 @@
                 <ImageView
                     android:id="@+id/restaurant_background"
                     android:layout_width="match_parent"
-                    android:layout_height="255dp"
+                    android:layout_height="250dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/burgerking" />
 
                 <ImageButton
                     android:id="@+id/cartButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginTop="25dp"
                     android:background="@drawable/ic_baseline_shopping_cart_24"
-                    android:src="@drawable/ic_baseline_shopping_cart_24"
-                    android:tint="#FFFFFF"
-                    android:translationZ="10dp" />
+                    android:scaleType="fitCenter"
+                    android:backgroundTint="#FFFFFF"
+                    android:layout_alignParentRight="true"
+                    android:translationZ="90dp" />
 
             </RelativeLayout>
 
             <!--Restaurant Information Section Top-->
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginTop="25dp"
                 android:background="#00FFFFFF"
                 android:src="@drawable/ic_baseline_arrow_back_ios_24"
                 android:tint="#FFFFFF">
                 <!--Restaurant Name Text-->
                 <TextView
                     android:id="@+id/name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="190dp"
+                    android:autoSizeTextType="uniform"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="Burger King"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:fontFamily="sans-serif"
+                    android:textStyle="bold"
+                    android:text="%R%"
+                    android:textColor="#000000"
+                    android:textSize="35sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
                     android:id="@+id/address"
-                    android:layout_width="153dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:gravity="top"
-                    android:text="2371 Robson Ave"
-                    android:textAlignment="viewEnd"
-                    android:textSize="12sp"
-                    android:translationY="-10dp"
-                    tools:ignore="RtlCompat" />
+                    android:gravity="right"
+                    android:text="%RESTAURANTADDRESS%"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat"
+                    android:textColor="#646464"
+                    app:layout_constraintStart_toEndOf="@id/name"
+                    app:layout_constraintEnd_toEndOf="parent
+"                   app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- Restaurant Information Section Bottom -->
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="18dp"
-                android:paddingTop="5dp">
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:id="@+id/priceSymbol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="3dp"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginBottom="10dp"
-                    android:fontFamily="monospace"
-                    android:text="$$"
-                    android:textColor="#000000"
-                    android:textSize="16sp" />
+                    android:fontFamily="sans-serif-black"
+                    android:text="%PRICE%"
+                    android:textColor="#36AE5F"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
                 <RatingBar
                     android:id="@+id/stars"
                     style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="3dp"
                     android:clickable="false"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:isIndicator="true"
                     android:numStars="5"
-                    android:stepSize="0.1" />
+                    android:stepSize="0.1"
+                    app:layout_constraintStart_toEndOf="@id/priceSymbol"
+                    app:layout_constraintEnd_toStartOf="@id/delivery"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
                 <TextView
                     android:id="@+id/delivery"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="37dp"
-                    android:fontFamily="monospace"
-                    android:text="$23.99 Delivery Fee"
-                    android:textColor="#000000"
-                    android:textSize="13sp" />
+                    android:text="%FEE%"
+                    android:textColor="#646464"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!--Yelp button-->
             <ImageButton
@@ -157,21 +153,18 @@
                 android:id="@+id/most_popular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:paddingLeft="20dp"
-                android:paddingTop="3dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="1dp"
-                android:text="Most Popular"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:fontFamily="sans-serif"
+                android:textColor="#000000"
+                android:text="Popular Menu Items:"
+                android:textSize="25sp"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="25dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/menu_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginBottom="40dp" />
 
         </LinearLayout>

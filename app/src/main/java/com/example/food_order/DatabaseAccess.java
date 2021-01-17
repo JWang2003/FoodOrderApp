@@ -95,7 +95,7 @@ public class DatabaseAccess {
                     bmp = BitmapFactory.decodeByteArray(image, 0 , image.length);
                 } else {
                     bmp = BitmapFactory.decodeResource(context.getResources(),
-                            R.drawable.acousticbreeze);
+                            R.drawable.logo);
                 }
                 String price = c.getString(2);
                 String details = c.getString(3);
@@ -143,9 +143,9 @@ public class DatabaseAccess {
                 contentValues.put("FoodDetails", dish.mDetails);
                 long result = db.insert("Cart", null, contentValues);
                 if (result != 0) {
-                    Toast.makeText(context, "Data added into our table", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "Successfully saved changes", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(context, "Failed to add data", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "Could not save changes!", Toast.LENGTH_SHORT).show();
                 }
                 close();
             }
@@ -171,7 +171,7 @@ public class DatabaseAccess {
                     bmp = BitmapFactory.decodeByteArray(image, 0 , image.length);
                 } else {
                     bmp = BitmapFactory.decodeResource(context.getResources(),
-                            R.drawable.default_image);
+                            R.drawable.logo);
                 }
                 String price = c.getString(3);
                 String details = c.getString(4);
@@ -223,9 +223,9 @@ public class DatabaseAccess {
             contentValues.put("FoodDetails", dish.mDetails);
             long result = db.insert("Favourites", null, contentValues);
             if (result != 0) {
-                Toast.makeText(context, "Successfully saved changes", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "Successfully saved changes", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(context, "Could not save changes!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "Could not save changes!", Toast.LENGTH_SHORT).show();
             }
             close();
         }
@@ -252,7 +252,7 @@ public class DatabaseAccess {
                         bmp = BitmapFactory.decodeByteArray(image, 0 , image.length);
                     } else {
                         bmp = BitmapFactory.decodeResource(context.getResources(),
-                                R.drawable.default_image);
+                                R.drawable.logo);
                     }
 
                     playlistObjects.add(new PlaylistObject(name, bmp));
@@ -280,7 +280,7 @@ public class DatabaseAccess {
                     bmp = BitmapFactory.decodeByteArray(image, 0 , image.length);
                 } else {
                     bmp = BitmapFactory.decodeResource(context.getResources(),
-                            R.drawable.default_image);
+                            R.drawable.logo);
                 }
                 String price = c.getString(4);
                 String details = c.getString(5);
@@ -309,7 +309,7 @@ public class DatabaseAccess {
                     bmp = BitmapFactory.decodeByteArray(image, 0 , image.length);
                 } else {
                     bmp = BitmapFactory.decodeResource(context.getResources(),
-                            R.drawable.default_image);
+                            R.drawable.logo);
                 }
                 String price = c.getString(4);
                 String details = c.getString(5);

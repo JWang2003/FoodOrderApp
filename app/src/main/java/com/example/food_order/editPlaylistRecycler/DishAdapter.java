@@ -37,10 +37,10 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
         public ImageView mDishImage;
         public TextView mNameText;
         public TextView mPriceText;
-        public Button addCart;
+        public ImageButton addCart;
         public Button mDecrementCounter;
         public Button mIncrementCounter;
-        public Button mDetailsButton;       //THIS IS AN OUTDATED NAME FOR THE ADD TO CART BUTTON. DO NOT DELETE!
+        public ImageButton mDetailsButton;       //THIS IS AN OUTDATED NAME FOR THE ADD TO CART BUTTON. DO NOT DELETE!
         public TextView mCounterText;
         public ImageButton mDeleteButton;
 
@@ -89,7 +89,6 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
                     }
                 }
             });
-
             mDeleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -4,8 +4,6 @@ import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -113,6 +111,7 @@ public class FoodView extends AppCompatActivity implements AdapterView.OnItemSel
             @Override
             public void onClick(View view) {
                 db.addFoodToCart(dish, dish.mQuantity);
+                Toast.makeText(FoodView.this, ("Added " + dish.mQuantity + "x " + dish.mFoodName + " to Cart"), Toast.LENGTH_LONG).show();
             }
         });
         favouritesAdd.setOnClickListener(new View.OnClickListener() {
@@ -129,8 +128,8 @@ public class FoodView extends AppCompatActivity implements AdapterView.OnItemSel
         for (PlaylistObject pl : db.getPlaylists()) {
             mPlaylistNameList.add(pl.playlistName);
         }                                                   //copy db to list of names
-        mPlaylistNameList.add("Create new playlist...");    //add create selection
-        mPlaylistNameList.add(0, "Cancel");    //since null selection isn't possible
+        mPlaylistNameList.add("+ Create new playlist...");    //add create selection
+        mPlaylistNameList.add(0, "− Cancel...");    //since null selection isn't possible
         mSpinner = findViewById(R.id.playlist_spinner);
         mSpinner.setOnItemSelectedListener(this);
 
@@ -169,6 +168,7 @@ public class FoodView extends AppCompatActivity implements AdapterView.OnItemSel
                 input = input.replaceAll("[^A-Za-z]+", "");
                 if (!input.equals("")) {
                     db.addToPlaylist(input, dish);
+                    setUpSpinner();
                     Toast.makeText(FoodView.this, ("Added " + dish.mQuantity + "x " + dish.mFoodName + " to playlist " + input), Toast.LENGTH_LONG).show();
                 }
             }

@@ -3,55 +3,55 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="5dp"
-    android:paddingHorizontal="5dp"
-    android:layout_margin="10dp"
-    >
+    android:layout_gravity="center"
+    android:padding="13dp"
+    android:layout_centerHorizontal="true">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_view"
-        android:layout_width="380dp"
-        android:layout_height="300dp"
         android:layout_gravity="center"
+        android:id="@+id/card_view"
+        android:layout_width="350dp"
+        android:layout_height="275dp"
         android:background="@color/teal_200"
-        app:cardBackgroundColor="#EDEDED"
+        app:cardBackgroundColor="#E1E1E1"
         app:cardCornerRadius="25dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
             <ImageView
                 android:id="@+id/restaurant_image"
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:background="#EDEDED"
+                android:layout_height="175dp"
+                android:src="@drawable/americanfood"
+                android:background="@android:color/transparent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:scaleType="centerCrop"
-                />
+                android:scaleType="centerCrop" />
 
             <TextView
                 android:id="@+id/restaurant_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/open_sans_regular"
-                android:padding="10dp"
-                android:text="RESTAURANT NAME"
-                android:textColor="@color/black"
-                android:textSize="15sp"
+                android:layout_margin="25dp"
+                android:gravity="center"
+                android:text="%RESTAURANTNAME%"
+                android:textColor="#4B4B4B"
+                android:fontFamily="sans-serif-black"
+                android:textSize="20sp"
                 app:layout_constraintTop_toBottomOf="@id/restaurant_image" />
 
             <TextView
                 android:id="@+id/restaurant_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/open_sans_regular"
-                android:padding="10dp"
-                android:text="$$$"
-                android:textColor="@color/black"
+                android:text="%PRICE%"
+                android:textColor="#36Ae5F"
+                android:fontFamily="sans-serif-black"
+                android:layout_marginLeft="25dp"
+                android:layout_marginBottom="25dp"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -62,9 +62,10 @@
                 android:stepSize="0.1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/restaurant_price"
                 app:layout_constraintStart_toEndOf="@+id/restaurant_price"
-                app:layout_constraintTop_toBottomOf="@+id/restaurant_name"
+                app:layout_constraintEnd_toStartOf="@id/restaurant_deliveryFee"
+                app:layout_constraintTop_toBottomOf="@+id/restaurant_deliveryFee"
                 android:clickable="false"
                 android:focusableInTouchMode="false"
                 android:focusable="false"
@@ -74,15 +75,15 @@
 
             <TextView
                 android:id="@+id/restaurant_deliveryFee"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/open_sans_regular"
-                android:padding="10dp"
-                android:text="$123123123 delivery"
-                android:textColor="@color/black"
+                android:text="%FEE%"
+                android:textColor="#646464"
                 android:textSize="15sp"
+                android:layout_marginRight="25dp"
+                android:layout_marginBottom="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ratingBar" />
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

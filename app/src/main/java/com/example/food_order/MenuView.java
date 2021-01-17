@@ -153,7 +153,7 @@ public class MenuView extends AppCompatActivity implements MenuViewHolder.OnNote
         restStars = findViewById(R.id.stars);
         restStars.setRating(Stars);
         restDeliveryFee = findViewById(R.id.delivery);
-        restDeliveryFee.setText(restaurant.deliveryFee);
+        restDeliveryFee.setText(restaurant.deliveryFee + " Delivery");
 
 //        // TODO: Connect button
 //        yelpLink = findViewById(R.id.yelp_link);

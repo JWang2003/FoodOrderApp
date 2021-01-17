@@ -4,30 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:orientation="vertical"
-    android:paddingHorizontal="5dp"
-    android:paddingBottom="5dp">
+    android:layout_gravity="center"
+    android:padding="13dp"
+    android:layout_centerHorizontal="true"
+    android:orientation="vertical">
 
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
-        android:layout_width="380dp"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@color/teal_200"
-        app:cardBackgroundColor="#EDEDED"
-        app:cardCornerRadius="15dp">
+        app:cardBackgroundColor="#E1e1e1"
+        app:cardCornerRadius="25dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
             <ImageView
                 android:id="@+id/menu_dish_image"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="200dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/burgerking"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -37,23 +35,25 @@
                 android:id="@+id/menu_dish_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="Big Mac Meal"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:textSize="24sp"
+                android:layout_margin="25dp"
+                android:gravity="center"
+                android:fontFamily="sans-serif-black"
+                android:textColor="#4b4b4b"
+                android:text="%NAME%"
+                android:textSize="25sp"
                 app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/menu_dish_image" />
 
             <TextView
                 android:id="@+id/menu_dish_description"
-                android:layout_width="330dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="sans-serif"
-                android:text="ccording to all known laws of aviation, there is no way a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway because bees don't care what humans think is impossible. "
+                android:layout_marginRight="25dp"
+                android:layout_marginTop="15dp"
+                android:textColor="#646464"
+                android:text="%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DESC%%DES"
                 android:textSize="14sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/menu_dish_name" />
@@ -70,14 +70,13 @@
                     android:id="@+id/menu_dish_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    android:layout_marginStart="25dp"
+                    android:layout_marginBottom="25dp"
                     android:layout_marginLeft="25dp"
-                    android:layout_marginBottom="20dp"
-                    android:text="$10.99"
+                    android:layout_marginTop="15dp"
+                    android:text="%PRICE%"
                     android:textColor="#AE3636"
-                    android:textSize="48sp"
-                    android:textStyle="bold" />
+                    android:textSize="35sp"
+                    android:fontFamily="sans-serif-black" />
 
 
             </LinearLayout>
