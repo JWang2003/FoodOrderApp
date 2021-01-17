@@ -62,7 +62,8 @@
                 android:fontFamily="sans-serif-medium"
                 android:text="Burger King"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="27sp"/>
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/address"
@@ -73,7 +74,7 @@
                 android:gravity="center"
                 android:text="2371 Robson Ave"
                 android:textAlignment="viewEnd"
-                android:textSize="18sp"
+                android:textSize="12sp"
                 tools:ignore="RtlCompat" />
         </LinearLayout>
 
@@ -89,9 +90,12 @@
                 android:id="@+id/priceSymbol"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
                 android:layout_marginLeft="3dp"
+                android:layout_marginBottom="10dp"
                 android:fontFamily="monospace"
                 android:text="$$"
+                android:textColor="#000000"
                 android:textSize="16sp" />
 
             <RatingBar
@@ -101,6 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
                 android:clickable="false"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
@@ -118,15 +123,17 @@
                 android:layout_marginLeft="37dp"
                 android:fontFamily="monospace"
                 android:text="$23.99 Delivery Fee"
+                android:textColor="#000000"
                 android:textSize="13sp" />
         </LinearLayout>
 
         <ImageButton
             android:id="@+id/yelp_link"
-            android:layout_width="360dp"
+            android:layout_width="340dp"
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="2dp"></ImageButton>
+            android:layout_marginTop="2dp"
+            android:background="@drawable/yelp_icon" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -144,14 +151,17 @@
                 android:fontFamily="sans-serif-medium"
                 android:text="Most Popular"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:textSize="32sp" />
+                android:textSize="30sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/menu_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="230dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TopSection" />
 
