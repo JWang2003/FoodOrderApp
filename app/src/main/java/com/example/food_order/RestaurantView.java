@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -51,6 +52,8 @@ public class RestaurantView extends AppCompatActivity implements RestaurantViewH
                 if (!db.getCartDishes().isEmpty()) {
                     Intent intent = new Intent(RestaurantView.this, CheckoutView.class);
                     startActivity(intent);
+                } else {
+                    Toast.makeText(RestaurantView.this, "You have nothing in your cart!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -72,7 +75,6 @@ public class RestaurantView extends AppCompatActivity implements RestaurantViewH
         restaurantAdapter = new RestaurantAdapter(this, restaurants, this);
         restaurantsRecyclerView.setAdapter(restaurantAdapter);
         restaurantsRecyclerView.setHasFixedSize(true);
-
     }
 
     @Override

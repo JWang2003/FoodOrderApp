@@ -92,8 +92,10 @@ public class MenuView extends AppCompatActivity implements MenuViewHolder.OnNote
             public void onClick(View view) {
                 if (!db.getCartDishes().isEmpty()) {
                     openCart();
-                };
-            }
+                } else {
+                    Toast.makeText(MenuView.this, "You have nothing in your cart!", Toast.LENGTH_SHORT).show();
+                }
+        }
         });
     }
 

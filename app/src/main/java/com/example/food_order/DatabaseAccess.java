@@ -113,7 +113,6 @@ public class DatabaseAccess {
     public void addFoodToCart(Dish dish, int quantity) {
         ArrayList<Dish> dishes = getCartDishes();
         boolean alreadyExists = false;
-        // TODO: Do not allow repeat dishes if already in cart, simply update the quantity
         try {
             open();
             Dish repeatDish = dish;
@@ -143,7 +142,7 @@ public class DatabaseAccess {
                 contentValues.put("FoodDetails", dish.mDetails);
                 long result = db.insert("Cart", null, contentValues);
                 if (result != 0) {
-                    Toast.makeText(context, "Successfully added to your cart!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Successfully added/saved to your cart!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(context, "Failed to add to your cart :'(", Toast.LENGTH_SHORT).show();
                 }

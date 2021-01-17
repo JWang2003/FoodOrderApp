@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -60,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
                 if (!db.getCartDishes().isEmpty()) {
                     Intent intent = new Intent(MainActivity.this, CheckoutView.class);
                     startActivity(intent);
+                } else {
+                    Toast.makeText(MainActivity.this, "You have nothing in your cart!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
