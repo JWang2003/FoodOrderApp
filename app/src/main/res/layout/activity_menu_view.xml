@@ -15,15 +15,13 @@
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        >
-
+        android:fillViewport="true">
 
         <!--Entire view-->
         <LinearLayout
-            android:descendantFocusability="blocksDescendants"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:descendantFocusability="blocksDescendants"
             android:orientation="vertical">
 
             <!-- Restaurant Image Section[start]-->
@@ -31,8 +29,7 @@
                 android:id="@+id/RestaurantImageSection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <!--Restaurant background image-->
                 <ImageView
@@ -42,13 +39,20 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/burgerking" />
 
-                <!--back button-->
                 <ImageButton
-                    android:id="@+id/back"
-                    android:layout_width="30dp"
+                    android:id="@+id/cartButton"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp" />
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/ic_baseline_shopping_cart_24"
+                    android:src="@drawable/ic_baseline_shopping_cart_24"
+                    android:tint="#FFFFFF"
+                    android:translationZ="10dp" />
 
             </RelativeLayout>
 
@@ -56,12 +60,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="20dp"
-                android:paddingTop="3dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="1dp">
-
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:background="#00FFFFFF"
+                android:src="@drawable/ic_baseline_arrow_back_ios_24"
+                android:tint="#FFFFFF">
                 <!--Restaurant Name Text-->
                 <TextView
                     android:id="@+id/name"
@@ -77,12 +84,15 @@
                     android:id="@+id/address"
                     android:layout_width="153dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="top"
                     android:text="2371 Robson Ave"
                     android:textAlignment="viewEnd"
                     android:textSize="12sp"
+                    android:translationY="-10dp"
                     tools:ignore="RtlCompat" />
 
             </LinearLayout>
@@ -134,6 +144,7 @@
 
             </LinearLayout>
 
+            <!--Yelp button-->
             <ImageButton
                 android:id="@+id/yelp_link"
                 android:layout_width="340dp"
@@ -142,42 +153,36 @@
                 android:layout_marginTop="2dp"
                 android:background="@drawable/yelp_icon" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/most_popular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:fontFamily="sans-serif-medium"
                 android:paddingLeft="20dp"
                 android:paddingTop="3dp"
                 android:paddingRight="20dp"
-                android:paddingBottom="1dp">
-
-                <TextView
-                    android:id="@+id/most_popular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="Most Popular"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                android:paddingBottom="1dp"
+                android:text="Most Popular"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="10dp"
                 android:id="@+id/menu_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-<!--                android:layout_marginTop="50dp"-->
-<!--                android:layout_marginBottom="40dp" -->
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="40dp" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-<!--    <FrameLayout-->
-<!--        android:id="@+id/web_container"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="480dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent" />-->
+    <!--    <FrameLayout-->
+    <!--        android:id="@+id/web_container"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="480dp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent" />-->
 
     <!-- Restaurant Image Section [end]-->
 

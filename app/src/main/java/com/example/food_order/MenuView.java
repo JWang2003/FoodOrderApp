@@ -44,6 +44,7 @@ public class MenuView extends AppCompatActivity implements MenuViewHolder.OnNote
     RatingBar restStars;
     TextView restDeliveryFee;
     ImageButton yelpLink;
+    ImageButton toCart;
 
     ConstraintLayout constraintLayout;
 
@@ -61,27 +62,12 @@ public class MenuView extends AppCompatActivity implements MenuViewHolder.OnNote
 
         //Main Display
         getIntents();
-        connectXMLViews();
+        setUpButtons();
 
         initViews();
         refreshAdapters();
 
     }
-
-    public void initViews() {
-        nestedScrollView = findViewById(R.id.nestedScrollView);
-        mRecyclerView = findViewById(R.id.menu_recycler_view);
-        LinearLayoutManager LayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(LayoutManager);
-
-    }
-
-    public void refreshAdapters() {
-        mAdapter = new MenuAdapter(this, dishes, this);
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setNestedScrollingEnabled(false);
-    }
-
 
     public void getIntents() {
         // https://stackoverflow.com/questions/11010386/passing-android-bitmap-data-within-activity-using-intent-in-android
@@ -101,6 +87,38 @@ public class MenuView extends AppCompatActivity implements MenuViewHolder.OnNote
         System.out.println("Restaurant added: " + restaurant);
         connectXMLViews();
     }
+
+    public void setUpButtons() {
+        toCart = findViewById(R.id.cartButton);
+        toCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCart();
+            }
+        });
+    }
+
+    private void openCart() {
+        Intent openCart = new Intent(this, CheckoutView.class);
+        startActivity(openCart);
+    }
+
+    public void initViews() {
+        nestedScrollView = findViewById(R.id.nestedScrollView);
+        mRecyclerView = findViewById(R.id.menu_recycler_view);
+        LinearLayoutManager LayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(LayoutManager);
+
+    }
+
+    public void refreshAdapters() {
+        mAdapter = new MenuAdapter(this, dishes, this);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setNestedScrollingEnabled(false);
+    }
+
+
+
 
     public void connectXMLViews() {
         constraintLayout = findViewById(R.id.page);
