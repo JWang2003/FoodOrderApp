@@ -10,180 +10,171 @@
     android:focusableInTouchMode="true"
     tools:context=".MenuView">
 
-    <!--Top Section-->
-    <LinearLayout
-        android:id="@+id/TopSection"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
 
-        <!-- Restaurant Image Section[start]-->
-        <RelativeLayout
-            android:id="@+id/RestaurantImageSection"
+        <!--Entire view-->
+        <LinearLayout
+            android:descendantFocusability="blocksDescendants"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="parent">
+            android:orientation="vertical">
 
-            <!--Restaurant background image-->
-            <ImageView
-                android:id="@+id/restaurant_background"
+            <!-- Restaurant Image Section[start]-->
+            <RelativeLayout
+                android:id="@+id/RestaurantImageSection"
                 android:layout_width="match_parent"
-                android:layout_height="255dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/burgerking" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
 
-            <!--back button-->
+                <!--Restaurant background image-->
+                <ImageView
+                    android:id="@+id/restaurant_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="255dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/burgerking" />
+
+                <!--back button-->
+                <ImageButton
+                    android:id="@+id/back"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp" />
+
+            </RelativeLayout>
+
+            <!--Restaurant Information Section Top-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingTop="3dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="1dp">
+
+                <!--Restaurant Name Text-->
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Burger King"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_width="153dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="2371 Robson Ave"
+                    android:textAlignment="viewEnd"
+                    android:textSize="12sp"
+                    tools:ignore="RtlCompat" />
+
+            </LinearLayout>
+
+            <!-- Restaurant Information Section Bottom -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="18dp"
+                android:paddingTop="5dp">
+
+                <TextView
+                    android:id="@+id/priceSymbol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="monospace"
+                    android:text="$$"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <RatingBar
+                    android:id="@+id/stars"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="3dp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:stepSize="0.1" />
+
+                <TextView
+                    android:id="@+id/delivery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="37dp"
+                    android:fontFamily="monospace"
+                    android:text="$23.99 Delivery Fee"
+                    android:textColor="#000000"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
             <ImageButton
-                android:id="@+id/back"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp" />
+                android:id="@+id/yelp_link"
+                android:layout_width="340dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/yelp_icon" />
 
-        </RelativeLayout>
-
-        <!--Restaurant Information Section Top-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingLeft="20dp"
-            android:paddingTop="3dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="1dp">
-
-            <!--Restaurant Name Text-->
-            <TextView
-                android:id="@+id/name"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:text="Burger King"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingTop="3dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="1dp">
 
-            <TextView
-                android:id="@+id/address"
-                android:layout_width="153dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="2371 Robson Ave"
-                android:textAlignment="viewEnd"
-                android:textSize="12sp"
-                tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/most_popular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Most Popular"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/menu_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+<!--                android:layout_marginTop="50dp"-->
+<!--                android:layout_marginBottom="40dp" -->
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-        <!-- Restaurant Information Section Bottom -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingLeft="18dp"
-            android:paddingTop="5dp">
-
-            <TextView
-                android:id="@+id/priceSymbol"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:layout_marginLeft="3dp"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="monospace"
-                android:text="$$"
-                android:textColor="#000000"
-                android:textSize="16sp" />
-
-            <RatingBar
-                android:id="@+id/stars"
-                style="?android:attr/ratingBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="3dp"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:isIndicator="true"
-                android:numStars="5"
-                android:stepSize="0.1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/restaurant_price"
-                app:layout_constraintTop_toBottomOf="@+id/restaurant_name" />
-
-            <TextView
-                android:id="@+id/delivery"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="37dp"
-                android:fontFamily="monospace"
-                android:text="$23.99 Delivery Fee"
-                android:textColor="#000000"
-                android:textSize="13sp" />
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/yelp_link"
-            android:layout_width="340dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="2dp"
-            android:background="@drawable/yelp_icon" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="20dp"
-            android:paddingTop="3dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="1dp">
-
-            <TextView
-                android:id="@+id/most_popular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:text="Most Popular"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/TopSection"
-        app:layout_constraintLeft_toLeftOf="parent">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/menu_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TopSection" />
-
-
-    <FrameLayout
-       android:id="@+id/web_container"
-       android:layout_width="match_parent"
-       android:layout_height="480dp"
-       app:layout_constraintBottom_toBottomOf="parent"
-       app:layout_constraintStart_toStartOf="parent" />
-
-
-
-
+<!--    <FrameLayout-->
+<!--        android:id="@+id/web_container"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="480dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
 
     <!-- Restaurant Image Section [end]-->
 
