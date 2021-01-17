@@ -64,7 +64,7 @@ public class MenuView extends AppCompatActivity implements MenuViewHolder.OnNote
         connectXMLViews();
 
         initViews();
-        refreshAdapter();
+        refreshAdapters();
 
     }
 
@@ -76,7 +76,7 @@ public class MenuView extends AppCompatActivity implements MenuViewHolder.OnNote
 
     }
 
-    public void refreshAdapter() {
+    public void refreshAdapters() {
         mAdapter = new MenuAdapter(this, dishes, this);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setNestedScrollingEnabled(false);
