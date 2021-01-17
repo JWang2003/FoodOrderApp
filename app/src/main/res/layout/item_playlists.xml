@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="340dp"
     android:layout_height="175dp"
     android:layout_gravity="center"
     android:layout_margin="35dp"
     app:cardCornerRadius="25dp">
 
+    <ImageView
+        android:id="@+id/image_playlist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:translationZ="-90dp" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/image_playlist"
-            android:background="#653030"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:translationZ="-90dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:background="#56587E52"
+        android:translationZ="10dp"
+        >
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/NameView"
@@ -37,18 +36,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/deleteplaylistbutton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_margin="20dp"
-            android:src="@drawable/ic_baseline_shopping_cart_24"
-            android:background="#FF0000">
-
-        </ImageButton>
-
         <TextView
             android:id="@+id/itemcount"
             android:layout_width="260dp"
@@ -61,18 +48,42 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/orderbutton"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="105dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#36AE5F"
             android:shadowColor="#36AE5F"
-            android:text="Order"
-            android:textColor="#000000"
+            app:cardBackgroundColor="#36AE5F"
+            app:cardCornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/orderbutton"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:background="#00FFFFFF"
+                android:text="Order"
+                android:textColor="#FFFFFF" />
+        </androidx.cardview.widget.CardView>
+
+        <ImageButton
+            android:id="@+id/deleteplaylistbutton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#00982727"
+            android:src="@drawable/ic_baseline_delete_24"
+            android:tint="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </ImageButton>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

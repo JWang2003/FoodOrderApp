@@ -7,10 +7,9 @@ public class PlaylistObject {
     public Bitmap foodImage;
     public int size;
 
-    public PlaylistObject(String mplaylistName, Bitmap mfoodImage, int msize) {
+    public PlaylistObject(String mplaylistName, Bitmap mfoodImage) {
         playlistName = mplaylistName;
         foodImage = mfoodImage;
-        size = msize;
     }
 
     @Override

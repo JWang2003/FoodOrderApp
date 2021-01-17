@@ -21,26 +21,41 @@ public class allPlaylist extends AppCompatActivity{
     private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+        for (PlaylistObject playlist: playlists) {
+            playlist.size = db.getPlaylistDishes(playlist.playlistName).size();
+        }
+        playlistAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_playlist);
         playlistRecyclerView = findViewById(R.id.playlist_recycle);
         db = DatabaseAccess.getInstance(getApplicationContext());
-        ArrayList<Dish> dishes = new ArrayList<>();
-        dishes = db.getDishes("Jenjudan");
 
-        for (Dish dish : dishes) {
-            db.addToPlaylist("Monkey", dish);
-        }
+        // This was for debugging
+        ArrayList<Dish> dishes = new ArrayList<>();
+//        dishes = db.getDishes("TokyoJoeSushi");
+
+//        for (Dish dish : dishes) {
+//            db.addToPlaylist("Monkey", dish);
+//        }
+
         playlists = db.getPlaylists();
         System.out.println(playlists);
+        // Default playlist when user has no playlists
         if (playlists.isEmpty()) {
-            PlaylistObject playlistObject = new PlaylistObject("Favourites", BitmapFactory.decodeResource(this.getResources(), R.drawable.barry_20b__20benson_large), 0);
+            PlaylistObject playlistObject = new PlaylistObject("Favourites", BitmapFactory.decodeResource(this.getResources(), R.drawable.barry_20b__20benson_large));
             playlists.add(playlistObject);
         }
-
+        // Set the size of each playlist
+        for (PlaylistObject playlist: playlists) {
+            playlist.size = db.getPlaylistDishes(playlist.playlistName).size();
+        }
         buildRecyclerView();
-
     }
 
     public void addPlaylistToCart(int position) {
@@ -53,10 +68,14 @@ public class allPlaylist extends AppCompatActivity{
     }
 
     public void deleteItem(int position) {
+        db.deletePlaylist(playlists.get(position).playlistName);
         if (playlists.size() > 1) {
             playlists.remove(position);
-            db.deletePlaylist(playlists.get(position).playlistName);
             playlistAdapter.notifyItemRemoved(position);
+        } else {
+            PlaylistObject playlistObject = new PlaylistObject("Favourites", BitmapFactory.decodeResource(this.getResources(), R.drawable.barry_20b__20benson_large));
+            playlists.set(position, playlistObject);
+            playlistAdapter.notifyItemChanged(position);
         }
     }
 
@@ -72,7 +91,6 @@ public class allPlaylist extends AppCompatActivity{
                 Intent intent = new Intent(allPlaylist.this, EditPlaylist.class);
                 intent.putExtra("playlistname", playlists.get(position).playlistName);
                 startActivity(intent);
-
             }
 
             @Override

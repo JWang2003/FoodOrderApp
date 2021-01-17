@@ -12,12 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.food_order.Dish;
-import com.example.food_order.EditPlaylist;
 import com.example.food_order.R;
 
 import java.util.ArrayList;
 
 public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder> {
+
     private ArrayList<Dish> mDishList;
     private OnItemClickListener mListener;
 
@@ -25,7 +25,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
         void onItemClick(int position);
         void onDecrementClick(int position);
         void onIncrementClick(int position);
-        void onDetailsClick(int position);
+        void onAddCartClick(int position);
         void onDeleteClick(int position);
     }
 
@@ -37,6 +37,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
         public ImageView mDishImage;
         public TextView mNameText;
         public TextView mPriceText;
+        public Button addCart;
         public Button mDecrementCounter;
         public Button mIncrementCounter;
         public TextView mCounterText;
@@ -44,9 +45,10 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
 
         public DishViewHolder(View itemView, final OnItemClickListener listener) {
             super(itemView);
-            mDishImage = itemView.findViewById(R.id.food_image);
+            addCart = itemView.findViewById(R.id.add_to_cart);
+            mDishImage = itemView.findViewById(R.id.dish_image);
             mNameText = itemView.findViewById(R.id.dish_name);
-            mPriceText = itemView.findViewById(R.id.food_price);
+            mPriceText = itemView.findViewById(R.id.dish_price);
             mIncrementCounter = itemView.findViewById(R.id.increment_counter);
             mDecrementCounter = itemView.findViewById(R.id.decrement_counter);
             mCounterText = itemView.findViewById(R.id.counter);
@@ -92,6 +94,18 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
                             listener.onDeleteClick(position);
+                        }
+                    }
+                }
+            });
+
+            addCart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onAddCartClick(position);
                         }
                     }
                 }
