@@ -4,10 +4,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -17,8 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class FoodView extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Dish dish;
@@ -32,6 +30,8 @@ public class FoodView extends AppCompatActivity implements AdapterView.OnItemSel
     ImageView dishImage;
     TextView dishQuantity;
     TextView dishPrice;
+    TextView dishDescription;
+    ImageButton favouritesAdd;
 
     //Buttons
     Button increment;
@@ -69,6 +69,9 @@ public class FoodView extends AppCompatActivity implements AdapterView.OnItemSel
     }
 
     public void connectXMLViews() {
+        favouritesAdd = findViewById(R.id.imageButton);
+        dishDescription = findViewById(R.id.details);
+        dishDescription.setText(dish.mDetails);
         dishName = findViewById(R.id.food_name);
         dishName.setText(dish.mFoodName);
         dishImage = findViewById(R.id.food_image);
@@ -106,7 +109,14 @@ public class FoodView extends AppCompatActivity implements AdapterView.OnItemSel
                 db.addFoodToCart(dish, dish.mQuantity);
             }
         });
+        favouritesAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSpinner.performClick();
+            }
+        });
     }
+
 
     public void setUpSpinner() {
         mPlaylistNameList = new ArrayList<>();
