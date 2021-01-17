@@ -1,18 +1,23 @@
 package com.example.food_order;
 
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.FileInputStream;
@@ -24,6 +29,7 @@ public class FoodView extends AppCompatActivity implements AdapterView.OnItemSel
     Bitmap foodImage;
     ArrayList<String> mPlaylistNameList;
     PlaylistObject createPlaylist;
+    String input;
 
     //XML
     TextView dishName;
@@ -122,9 +128,9 @@ public class FoodView extends AppCompatActivity implements AdapterView.OnItemSel
         mPlaylistNameList = new ArrayList<>();
         for (PlaylistObject pl : db.getPlaylists()) {
             mPlaylistNameList.add(pl.playlistName);
-        }
-        //createPlaylist = new PlaylistObject("Create new playlist", BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_baseline_add_24), 0);
-        mPlaylistNameList.add(0, "Create new playlist...");    //add the first option
+        }                                                   //copy db to list of names
+        mPlaylistNameList.add("Create new playlist...");    //add create selection
+        mPlaylistNameList.add(0, "Cancel");    //since null selection isn't possible
         mSpinner = findViewById(R.id.playlist_spinner);
         mSpinner.setOnItemSelectedListener(this);
 
@@ -137,12 +143,41 @@ public class FoodView extends AppCompatActivity implements AdapterView.OnItemSel
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (position==0) {
-            //TODO: take a name input
+        if (position == 0) {
+            // do nothing
+        } else if (position == mPlaylistNameList.size() - 1) {
+            showPopUp();
         } else {
             db.addToPlaylist(mPlaylistNameList.get(position), dish);
-            Toast.makeText(this, ("Added " + dish.mQuantity + "x " + dish.mFoodName + " to playlist " + mPlaylistNameList.get(position)), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, ("Added " + dish.mQuantity + "x " + dish.mFoodName + " to playlist " + mPlaylistNameList.get(position)), Toast.LENGTH_LONG).show();
+            mSpinner.setSelection(0);
         }
+    }
+
+    public void showPopUp() {
+        input = "";
+        final EditText taskEditText = new EditText(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Create new playlist");
+        builder.setMessage("Insert playlist name:");
+        builder.setView(taskEditText);
+        builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                input += taskEditText.getText().toString();
+                System.out.println(input);
+                input = input.replaceAll("[^A-Za-z]+", "");
+                if (!input.equals("")) {
+                    db.addToPlaylist(input, dish);
+                    Toast.makeText(FoodView.this, ("Added " + dish.mQuantity + "x " + dish.mFoodName + " to playlist " + input), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        System.out.println("CLOSED POP UP");
+        mSpinner.setSelection(0);
     }
 
     @Override

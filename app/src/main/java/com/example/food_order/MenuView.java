@@ -93,7 +93,9 @@ public class MenuView extends AppCompatActivity implements MenuViewHolder.OnNote
         toCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openCart();
+                if (!db.getCartDishes().isEmpty()) {
+                    openCart();
+                };
             }
         });
     }
