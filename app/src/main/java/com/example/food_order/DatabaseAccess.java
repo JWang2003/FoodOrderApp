@@ -13,7 +13,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class DatabaseAccess {
-//TODO: Allow user to rename playlist?
+
     Context context;
     private SQLiteOpenHelper openHelper;
     private SQLiteDatabase db;
@@ -111,34 +111,49 @@ public class DatabaseAccess {
     }
 
     public void addFoodToCart(Dish dish, int quantity) {
+        ArrayList<Dish> dishes = getCartDishes();
+        boolean alreadyExists = false;
         // TODO: Do not allow repeat dishes if already in cart, simply update the quantity
         try {
             open();
-            ContentValues contentValues = new ContentValues();
-            contentValues.put("ID", quantity);
-            contentValues.put("FoodItem", dish.mFoodName);
-            // Extra steps to store bitmap image
-            Bitmap imageToStoreBitmap = dish.mFoodImage;
-            objectByteArrayOutputStream = new ByteArrayOutputStream();
-            imageToStoreBitmap.compress(Bitmap.CompressFormat.JPEG, 100, objectByteArrayOutputStream);
-            imageInBytes = objectByteArrayOutputStream.toByteArray();
-
-            contentValues.put("FoodImage", imageInBytes);
-            contentValues.put("FoodPrice", dish.mPrice);
-            contentValues.put("FoodDetails", dish.mDetails);
-            long result = db.insert("Cart", null, contentValues);
-            if (result != 0) {
-                Toast.makeText(context, "Data added into our table", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(context, "Failed to add data", Toast.LENGTH_SHORT).show();
+            Dish repeatDish = dish;
+            for (Dish cartDish : dishes) {
+                if (cartDish.mFoodName.equals(dish.mFoodName)) {
+                    alreadyExists = true;
+                    repeatDish = cartDish;
+                    break;
+                }
             }
-            close();
+            if (alreadyExists) {
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("ID", quantity + repeatDish.mQuantity);
+                db.update("Cart", contentValues, "FoodItem = ?",new String[]{String.valueOf(repeatDish.mFoodName)});
+            } else {
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("ID", quantity);
+                contentValues.put("FoodItem", dish.mFoodName);
+                // Extra steps to store bitmap image
+                Bitmap imageToStoreBitmap = dish.mFoodImage;
+                objectByteArrayOutputStream = new ByteArrayOutputStream();
+                imageToStoreBitmap.compress(Bitmap.CompressFormat.JPEG, 100, objectByteArrayOutputStream);
+                imageInBytes = objectByteArrayOutputStream.toByteArray();
+
+                contentValues.put("FoodImage", imageInBytes);
+                contentValues.put("FoodPrice", dish.mPrice);
+                contentValues.put("FoodDetails", dish.mDetails);
+                long result = db.insert("Cart", null, contentValues);
+                if (result != 0) {
+                    Toast.makeText(context, "Data added into our table", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Failed to add data", Toast.LENGTH_SHORT).show();
+                }
+                close();
+            }
         }
-        catch(Exception e) {
-            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
-            close();
-        }
-        System.out.println("In the cart are: " + getCartDishes());
+        catch(Exception e){
+                Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+                close();
+            }
     }
 
     public ArrayList<Dish> getCartDishes() {
@@ -227,9 +242,9 @@ public class DatabaseAccess {
         d = db.rawQuery("select * from Favourites", null);
         if(d!=null && d.getCount() > 0) {
             while(d.moveToNext()) {
-                String name = d.getString(2);
-
+                String name = d.getString(1);
                 if(!playlistNames.contains(name)) {
+                    playlistNames.add(name);
                     byte[] image = d.getBlob(3);
 
                     Bitmap bmp;
@@ -239,40 +254,13 @@ public class DatabaseAccess {
                         bmp = BitmapFactory.decodeResource(context.getResources(),
                                 R.drawable.default_image);
                     }
-                    //TODO: Figure out how to track the size of the playlist
-                    int size = getPlaylistDishes(name, false).size();
-                    System.out.println("Size is " + size);
-                    playlistObjects.add(new PlaylistObject(name,bmp, size));
+
+                    playlistObjects.add(new PlaylistObject(name, bmp));
                 }
             }
         } else {
             System.out.println("Failed to add, cursor is null or count is 0 in getPlaylists()");
         }
-//        // TODO: Delete this when debugging over
-//        if(playlistObjects.isEmpty()) {
-//            d = db.rawQuery("select * from TokyoJoeSushi", null);
-//            if(d!=null && d.getCount() > 0) {
-//                while(d.moveToNext()) {
-//                    System.out.println("Ran");
-//                    String name = d.getString(0);
-//                    byte[] image = d.getBlob(1);
-//
-//                    Bitmap bmp;
-//                    if (image != null) {
-//                        bmp = BitmapFactory.decodeByteArray(image, 0 , image.length);
-//                    } else {
-//                        bmp = BitmapFactory.decodeResource(context.getResources(),
-//                                R.drawable.acousticbreeze);
-//                    }
-//                    int size = getPlaylistDishes(name).size();
-//                    playlistObjects.add(new PlaylistObject(name,bmp, size));
-//                    System.out.println("Used the debugging playlist as there was nothing in playlist");
-//                }
-//            }else {
-//                System.out.println("Failed to add, cursor is null or count is 0");
-//            }
-//
-//        }
         close();
         return playlistObjects;
     }

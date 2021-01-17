@@ -1,19 +1,16 @@
 package com.example.food_order;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-
 import com.example.food_order.editPlaylistRecycler.DishAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class EditPlaylist extends AppCompatActivity {
 
@@ -35,6 +32,8 @@ public class EditPlaylist extends AppCompatActivity {
         Intent intent = getIntent();
         currentPlaylistName = intent.getStringExtra("playlistname");
         mDishList = db.getPlaylistDishes(currentPlaylistName);
+
+        System.out.println("Dish list in editplaylist is: " + mDishList);
         mPlaylistName = findViewById(R.id.playlistName);
         mPlaylistName.setText(currentPlaylistName);
 
@@ -66,7 +65,6 @@ public class EditPlaylist extends AppCompatActivity {
             db.addFoodToCart(currentDish, currentDish.mQuantity);
             System.out.println(currentDish.mQuantity + "x " + currentDish.mFoodName + " added to cart");
         }
-        System.out.println(db.getCartDishes());
     }
 
     public void buildRecyclerView() {
@@ -95,7 +93,7 @@ public class EditPlaylist extends AppCompatActivity {
             }
 
             @Override
-            public void onDetailsClick(int position) {
+            public void onAddCartClick(int position) {
                 addToCart(position);
             }
 
