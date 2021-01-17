@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,8 +29,10 @@ public class RestaurantView extends AppCompatActivity implements RestaurantViewH
     Bitmap bmp;
     ArrayList<Restaurant> restaurants;
     RestaurantAdapter restaurantAdapter;
+    String categoryName;
 
     // XML Views
+    ConstraintLayout constraintLayout;
     RecyclerView restaurantsRecyclerView;
     ImageView restaurantImage;
     SearchView searchView;
@@ -42,10 +45,34 @@ public class RestaurantView extends AppCompatActivity implements RestaurantViewH
         setContentView(R.layout.activity_restaurant_view);
         db = DatabaseAccess.getInstance(getApplicationContext());
         Intent intent = getIntent();
-        String categoryName = intent.getStringExtra("catname");
-        restaurants = db.getRestaurants(categoryName);
+        if (getIntent().hasExtra("catname")) {
+            categoryName = intent.getStringExtra("catname");
+            restaurants = db.getRestaurants(categoryName);
+        }
+        else if (getIntent().hasExtra("search")) {
+            categoryName = intent.getStringExtra("search");
+            restaurants = db.getSearchRestaurants(categoryName);
+            System.out.println("Found restaurants: " + restaurants);
+        }
+        if (restaurants.size() < 1) {
+            Toast.makeText(RestaurantView.this, "Nothing found for " + categoryName, Toast.LENGTH_SHORT).show();
+            finish();
+        }
         System.out.println("Restaurant view:" + restaurants);
+
+        connectXMLViews();
+        setUpGridLayout();
+    }
+
+    public void connectXMLViews() {
+        constraintLayout = findViewById(R.id.topbar);
+        restaurantsRecyclerView = findViewById(R.id.restaurants_recycle);
+        restaurantImage = findViewById(R.id.image);
+        searchView = findViewById(R.id.search_bar);
+        resultsText = findViewById(R.id.results_text);
+        resultsText.setText(restaurants.size() + " restaurants found: " + categoryName);
         cartButton = findViewById(R.id.checkout);
+        // CONNECT BUTTONS
         cartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,17 +84,35 @@ public class RestaurantView extends AppCompatActivity implements RestaurantViewH
                 }
             }
         });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchView.clearFocus();
+                restaurantAdapter.filter(query);
+                if (query.equals("")) {
+                    query = categoryName;
+                }
+                resultsText.setText(restaurants.size() + " restaurants found: " + query);
+                return true;
+            }
 
-        connectXMLViews();
-        setUpGridLayout();
-    }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                restaurantAdapter.filter(newText);
+                if (newText.equals("")) {
+                    newText = categoryName;
+                }
+                resultsText.setText(restaurants.size() + " restaurants found: " + newText);
+                return true;
+            }
+        });
 
-    public void connectXMLViews() {
-        restaurantsRecyclerView = findViewById(R.id.restaurants_recycle);
-        restaurantImage = findViewById(R.id.image);
-        searchView = findViewById(R.id.search_bar);
-        resultsText = findViewById(R.id.results_text);
-        resultsText.setText(restaurants.size() + " restaurants found");
+        constraintLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchView.clearFocus();
+            }
+        });
     }
 
     public void setUpGridLayout() {
@@ -81,9 +126,6 @@ public class RestaurantView extends AppCompatActivity implements RestaurantViewH
     @Override
     public void onNoteClick(int position) {
         Restaurant currentRestaurant = restaurants.get(position);
-        // This gets all the data of the restaurant selected
-//        String restaurantName = currentRestaurant.name;
-//        Bitmap bmp = currentRestaurant.image;
         bmp = currentRestaurant.image;
         try { // https://stackoverflow.com/questions/11010386/passing-android-bitmap-data-within-activity-using-intent-in-android
             //Write file
@@ -92,11 +134,6 @@ public class RestaurantView extends AppCompatActivity implements RestaurantViewH
             bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
             //Cleanup
             stream.close();
-//            if (bmp != null && !bmp.isRecycled()) {
-//                bmp.recycle();
-//                bmp = null;
-//            }
-//            bmp.recycle();
 
             //Pop intent
             Intent intent = new Intent(this, MenuView.class);

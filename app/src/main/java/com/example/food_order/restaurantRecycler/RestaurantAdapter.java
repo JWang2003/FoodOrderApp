@@ -20,10 +20,12 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantViewHolder
     // Properties
     Context context;
     ArrayList<Restaurant> restaurants;
+    ArrayList<Restaurant> restaurantsCopy;
 
     public RestaurantAdapter(Context context, ArrayList<Restaurant> restaurants, RestaurantViewHolder.OnNoteListener onNoteListener) {
         this.context = context;
         this.restaurants = restaurants;
+        restaurantsCopy = new ArrayList<>(restaurants);
         this.mOnNoteListener = onNoteListener;
     }
 
@@ -57,5 +59,20 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantViewHolder
     @Override
     public int getItemCount() {
         return restaurants.size();
+    }
+
+    public void filter(String text) {
+        restaurants.clear();
+        if(text.isEmpty()){
+            restaurants.addAll(restaurantsCopy);
+        } else{
+            text = text.toLowerCase();
+            for(Restaurant item: restaurantsCopy){
+                if(item.name.toLowerCase().contains(text)){
+                    restaurants.add(item);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }

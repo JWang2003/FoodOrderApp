@@ -32,7 +32,7 @@ public class DatabaseAccess {
     }
 
     public static com.example.food_order.DatabaseAccess getInstance(Context context) {
-        if(instance == null) {
+        if (instance == null) {
             instance = new com.example.food_order.DatabaseAccess(context);
         }
         return instance;
@@ -40,12 +40,12 @@ public class DatabaseAccess {
 
     // To open the database
     public void open() {
-            this.db = openHelper.getWritableDatabase();
+        this.db = openHelper.getWritableDatabase();
     }
 
     // To close the database connection
     public void close() {
-        if(db!= null) {
+        if (db != null) {
             this.db.close();
         }
     }
@@ -55,21 +55,20 @@ public class DatabaseAccess {
         System.out.println("trying to open " + category);
         open();
         c = db.rawQuery("select * from AllRestaurants where Category = '" + category + "'", new String[]{});
-        StringBuffer buffer = new StringBuffer();
-        if(c!=null && c.getCount() > 0) {
-            while(c.moveToNext()) {
-                    String name = c.getString(1);
-                    byte[] image = c.getBlob(2);
-                    Bitmap bmp= BitmapFactory.decodeByteArray(image, 0 , image.length);
-                    String address = c.getString(3);
-                    String priceRange = c.getString(4);
-                    String starRating = c.getString(5);
-                    String deliveryFee = c.getString(6);
-                    String yelpUrl = c.getString(7);
-                    restaurants.add(new Restaurant(name, bmp, address, priceRange, starRating, deliveryFee, yelpUrl));
-                    System.out.println("Restaurant added " + name);
+        if (c != null && c.getCount() > 0) {
+            while (c.moveToNext()) {
+                String name = c.getString(1);
+                byte[] image = c.getBlob(2);
+                Bitmap bmp = BitmapFactory.decodeByteArray(image, 0, image.length);
+                String address = c.getString(3);
+                String priceRange = c.getString(4);
+                String starRating = c.getString(5);
+                String deliveryFee = c.getString(6);
+                String yelpUrl = c.getString(7);
+                restaurants.add(new Restaurant(name, bmp, address, priceRange, starRating, deliveryFee, yelpUrl));
+                System.out.println("Restaurant added " + name);
             }
-        }else {
+        } else {
             System.out.println("Failed to add, cursor is null or count is 0");
         }
         System.out.println(restaurants);
@@ -85,14 +84,14 @@ public class DatabaseAccess {
         open();
         System.out.println("trying to open " + restaurantName);
         c = db.rawQuery("select * from " + restaurantName, null);
-        if(c!=null && c.getCount() > 0) {
-            while(c.moveToNext()) {
+        if (c != null && c.getCount() > 0) {
+            while (c.moveToNext()) {
                 String name = c.getString(0);
                 byte[] image = c.getBlob(1);
 
                 Bitmap bmp;
                 if (image != null) {
-                    bmp = BitmapFactory.decodeByteArray(image, 0 , image.length);
+                    bmp = BitmapFactory.decodeByteArray(image, 0, image.length);
                 } else {
                     bmp = BitmapFactory.decodeResource(context.getResources(),
                             R.drawable.logo);
@@ -103,7 +102,7 @@ public class DatabaseAccess {
                 dishes.add(new Dish(name, bmp, price, details));
                 System.out.println("Restaurant added " + name);
             }
-        }else {
+        } else {
             System.out.println("Failed to add, cursor is null or count is 0");
         }
         close();
@@ -126,7 +125,7 @@ public class DatabaseAccess {
             if (alreadyExists) {
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("ID", quantity + repeatDish.mQuantity);
-                db.update("Cart", contentValues, "FoodItem = ?",new String[]{String.valueOf(repeatDish.mFoodName)});
+                db.update("Cart", contentValues, "FoodItem = ?", new String[]{String.valueOf(repeatDish.mFoodName)});
             } else {
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("ID", quantity);
@@ -149,26 +148,25 @@ public class DatabaseAccess {
                 }
                 close();
             }
+        } catch (Exception e) {
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+            close();
         }
-        catch(Exception e){
-                Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
-                close();
-            }
     }
 
     public ArrayList<Dish> getCartDishes() {
         open();
         ArrayList<Dish> dishes = new ArrayList<>();
         c = db.rawQuery("select * from Cart", null);
-        if(c!=null && c.getCount() > 0) {
-            while(c.moveToNext()) {
+        if (c != null && c.getCount() > 0) {
+            while (c.moveToNext()) {
                 int quantity = c.getInt(0);
                 String name = c.getString(1);
                 byte[] image = c.getBlob(2);
 
                 Bitmap bmp;
                 if (image != null) {
-                    bmp = BitmapFactory.decodeByteArray(image, 0 , image.length);
+                    bmp = BitmapFactory.decodeByteArray(image, 0, image.length);
                 } else {
                     bmp = BitmapFactory.decodeResource(context.getResources(),
                             R.drawable.logo);
@@ -178,7 +176,7 @@ public class DatabaseAccess {
 
                 dishes.add(new Dish(quantity, name, bmp, price, details));
             }
-        }else {
+        } else {
             System.out.println("Failed to add, cursor is null or count is 0");
         }
         close();
@@ -193,7 +191,7 @@ public class DatabaseAccess {
 
     public void deleteFromCart(String foodName) {
         open();
-        db.delete("Cart", "FoodItem = ?", new String[] {foodName});
+        db.delete("Cart", "FoodItem = ?", new String[]{foodName});
         close();
     }
 
@@ -201,7 +199,7 @@ public class DatabaseAccess {
         open();
         ContentValues contentValues = new ContentValues();
         contentValues.put("ID", quantity);
-        db.update("Cart", contentValues, "FoodItem= ?", new String[] { foodName });
+        db.update("Cart", contentValues, "FoodItem= ?", new String[]{foodName});
         close();
     }
 
@@ -228,8 +226,7 @@ public class DatabaseAccess {
                 //Toast.makeText(context, "Could not save changes!", Toast.LENGTH_SHORT).show();
             }
             close();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
             close();
         }
@@ -240,16 +237,16 @@ public class DatabaseAccess {
         ArrayList<String> playlistNames = new ArrayList<>();
         ArrayList<PlaylistObject> playlistObjects = new ArrayList<>();
         d = db.rawQuery("select * from Favourites", null);
-        if(d!=null && d.getCount() > 0) {
-            while(d.moveToNext()) {
+        if (d != null && d.getCount() > 0) {
+            while (d.moveToNext()) {
                 String name = d.getString(1);
-                if(!playlistNames.contains(name)) {
+                if (!playlistNames.contains(name)) {
                     playlistNames.add(name);
                     byte[] image = d.getBlob(3);
 
                     Bitmap bmp;
                     if (image != null) {
-                        bmp = BitmapFactory.decodeByteArray(image, 0 , image.length);
+                        bmp = BitmapFactory.decodeByteArray(image, 0, image.length);
                     } else {
                         bmp = BitmapFactory.decodeResource(context.getResources(),
                                 R.drawable.logo);
@@ -269,15 +266,15 @@ public class DatabaseAccess {
         open();
         ArrayList<Dish> dishes = new ArrayList<>();
         c = db.rawQuery("select * from Favourites where Name = '" + nameOfPlaylist + "'", new String[]{});
-        if(c!=null && c.getCount() > 0) {
-            while(c.moveToNext()) {
+        if (c != null && c.getCount() > 0) {
+            while (c.moveToNext()) {
                 int quantity = c.getInt(0);
                 String name = c.getString(2);
                 byte[] image = c.getBlob(3);
 
                 Bitmap bmp;
                 if (image != null) {
-                    bmp = BitmapFactory.decodeByteArray(image, 0 , image.length);
+                    bmp = BitmapFactory.decodeByteArray(image, 0, image.length);
                 } else {
                     bmp = BitmapFactory.decodeResource(context.getResources(),
                             R.drawable.logo);
@@ -287,7 +284,7 @@ public class DatabaseAccess {
 
                 dishes.add(new Dish(quantity, name, bmp, price, details));
             }
-        }else {
+        } else {
             System.out.println("Failed to add, cursor is null or count is 0");
         }
         close();
@@ -298,15 +295,15 @@ public class DatabaseAccess {
         ArrayList<Dish> dishes = new ArrayList<>();
         Cursor c;
         c = db.rawQuery("select * from Favourites where Name = '" + nameOfPlaylist + "'", new String[]{});
-        if(c!=null && c.getCount() > 0) {
-            while(c.moveToNext()) {
+        if (c != null && c.getCount() > 0) {
+            while (c.moveToNext()) {
                 int quantity = c.getInt(0);
                 String name = c.getString(2);
                 byte[] image = c.getBlob(3);
 
                 Bitmap bmp;
                 if (image != null) {
-                    bmp = BitmapFactory.decodeByteArray(image, 0 , image.length);
+                    bmp = BitmapFactory.decodeByteArray(image, 0, image.length);
                 } else {
                     bmp = BitmapFactory.decodeResource(context.getResources(),
                             R.drawable.logo);
@@ -316,7 +313,7 @@ public class DatabaseAccess {
 
                 dishes.add(new Dish(quantity, name, bmp, price, details));
             }
-        }else {
+        } else {
             System.out.println("Failed to add, cursor is null or count is 0 in get playlist dishes()");
         }
         return dishes;
@@ -324,14 +321,53 @@ public class DatabaseAccess {
 
     public void deleteFromPlaylist(String playlistName, String foodName) {
         open();
-        db.delete("Favourites", "Name=? and FoodItem=?", new String[] {playlistName, foodName});
+        db.delete("Favourites", "Name=? and FoodItem=?", new String[]{playlistName, foodName});
         close();
     }
 
     public void deletePlaylist(String playlistName) {
         open();
-        db.delete("Favourites", "Name=?", new String[] {playlistName});
+        db.delete("Favourites", "Name=?", new String[]{playlistName});
         close();
+    }
+
+    public ArrayList<Restaurant> getSearchRestaurants(String query) {
+        ArrayList<Restaurant> restaurants = new ArrayList<>();
+        // This is so we don't repeat check categories
+        ArrayList<String> checkedCategories = new ArrayList<>();
+        query = query.toLowerCase();
+        open();
+        c = db.rawQuery("select Category, RestaurantName from AllRestaurants", new String[]{});
+        if (c != null) {
+            while (c.moveToNext()) {
+                String restName = c.getString(c.getColumnIndex("RestaurantName"));
+                String catName = c.getString(c.getColumnIndex("Category"));
+                if (catName.toLowerCase().contains(query) && !checkedCategories.contains(catName.toLowerCase())) {
+                    checkedCategories.add(catName.toLowerCase());
+                    ArrayList<Restaurant> tempRestaurants = getRestaurants(catName);
+                    for (Restaurant restaurant : tempRestaurants) {
+                        if (!restaurants.contains(restaurant)) {
+                            restaurants.add(restaurant);
+                        }
+                    }
+                }
+                if (restName.toLowerCase().contains(query)) {
+                    ArrayList<Restaurant> tempRestaurants = getRestaurants(catName);
+                    for(Restaurant restaurant : tempRestaurants) {
+                        // Check each restaurant in category to find if it matches, we must do this as we can't just search for the restaurant name that matches since restaurants names contain special characters that break sql, thus we must search the category and get the restaurant objects and then check the name of each restaurant
+                        if(restaurant.name.toLowerCase().contains(query) && !restaurants.contains(restaurant)) {
+                            restaurants.add(restaurant);
+                        }
+                    }
+
+                } else {
+                    System.out.println(restName.toLowerCase() + "Does not Contain " + query);
+                }
+
+            }
+        }
+        close();
+        return restaurants;
     }
 }
 

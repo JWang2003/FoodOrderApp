@@ -11,6 +11,7 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;     //DO NOT TOUCH THIS (terrible mistake)
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
     RecyclerView.LayoutManager mLayoutManager;
 
     // XML Views
+    ConstraintLayout constraintLayout;
     RecyclerView categoriesRecyclerView;
     ImageView restaurantImage;
     SearchView searchView;
@@ -55,6 +57,24 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
         populateCategories();
         setUpGridLayout();
         setUpSecondRecycler();
+    }
+    public void connectXMLViews() {
+        constraintLayout = findViewById(R.id.topbar);
+        categoriesRecyclerView = findViewById(R.id.categories_recycle);
+        restaurantImage = findViewById(R.id.image);
+        searchView = findViewById(R.id.search_bar);
+        cartButton = findViewById(R.id.checkout);
+        allPlaylistsButton = findViewById(R.id.view_all);
+        playlistRecyclerView = findViewById(R.id.playlist_recycler);
+        SlidingUpPanelLayout slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+
+        // SET UP BUTTON CLICKS
+        slidingUpPanelLayout.setFadeOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+            }
+        });
         allPlaylistsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,19 +93,27 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
                 }
             }
         });
-    }
-    public void connectXMLViews() {
-        categoriesRecyclerView = findViewById(R.id.categories_recycle);
-        restaurantImage = findViewById(R.id.image);
-        searchView = findViewById(R.id.search_bar);
-        cartButton = findViewById(R.id.checkout);
-        allPlaylistsButton = findViewById(R.id.view_all);
-        playlistRecyclerView = findViewById(R.id.playlist_recycler);
-        SlidingUpPanelLayout slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
-        slidingUpPanelLayout.setFadeOnClickListener(new View.OnClickListener() {
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onClick(View view) {
-                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+            public boolean onQueryTextSubmit(String query) {
+                System.out.println(query);
+                Intent intent = new Intent(MainActivity.this, RestaurantView.class);
+                intent.putExtra("search", query);
+                startActivity(intent);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        constraintLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchView.clearFocus();
             }
         });
     }
@@ -117,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
         for (PlaylistObject playlist: playlists) {
             playlist.size = db.getPlaylistDishes(playlist.playlistName).size();
         }
-        mLayoutManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
+        mLayoutManager = new GridLayoutManager(this, 2, GridLayoutManager.HORIZONTAL, false);
         playlistRecyclerView.setLayoutManager(mLayoutManager);
         playlistAdapter = new PlaylistAdapter(playlists);
         playlistRecyclerView.setAdapter(playlistAdapter);
