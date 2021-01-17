@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -50,6 +51,9 @@ public class MenuView extends AppCompatActivity implements MenuViewHolder.OnNote
     RecyclerView mRecyclerView;
     MenuAdapter mAdapter;
 
+    //Nested ScrollView
+    NestedScrollView nestedScrollView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,17 +63,25 @@ public class MenuView extends AppCompatActivity implements MenuViewHolder.OnNote
         getIntents();
         connectXMLViews();
 
-        buildRecyclerView();
+        initViews();
+        refreshAdapter();
+
     }
 
-    public void buildRecyclerView() {
+    public void initViews() {
+        nestedScrollView = findViewById(R.id.nestedScrollView);
         mRecyclerView = findViewById(R.id.menu_recycler_view);
         LinearLayoutManager LayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(LayoutManager);
+
+    }
+
+    public void refreshAdapter() {
         mAdapter = new MenuAdapter(this, dishes, this);
         mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setNestedScrollingEnabled(false);
     }
+
 
     public void getIntents() {
         // https://stackoverflow.com/questions/11010386/passing-android-bitmap-data-within-activity-using-intent-in-android
