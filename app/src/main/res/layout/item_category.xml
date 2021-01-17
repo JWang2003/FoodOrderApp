@@ -5,31 +5,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="10dp"
+    android:layout_gravity="center"
+    android:padding="13dp"
+    android:layout_centerHorizontal="true"
     >
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
-        android:layout_width="175dp"
-        android:layout_height="155dp"
+        android:layout_width="165dp"
+        android:layout_height="165dp"
         android:layout_gravity="center"
         android:background="#587E52"
-        app:cardBackgroundColor="#587E52"
-        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="#90000000"
+        app:cardCornerRadius="25dp"
         app:cardElevation="10dp">
 
         <TextView
             android:id="@+id/category_name"
-            android:layout_width="135dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:fontFamily="@font/open_sans_regular"
-            android:text="Category"
+            android:text="%CATEGORY"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="15sp"
-            android:textStyle="bold"
+            android:textSize="25sp"
+            android:fontFamily="sans-serif-black"
             android:translationZ="90dp" />
 
         <ImageView
@@ -38,8 +38,7 @@
             android:layout_height="fill_parent"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/barry_20b__20benson_large"
-            android:alpha="0.3"
-            />
+            android:alpha="0.38" />
 
     </androidx.cardview.widget.CardView>
 

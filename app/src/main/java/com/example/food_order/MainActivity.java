@@ -1,6 +1,7 @@
 package com.example.food_order;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,23 +13,24 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;     //DO NOT TOUCH THIS (terrible mistake)
 
 import com.example.food_order.categoryRecycler.Category;
 import com.example.food_order.categoryRecycler.CategoryAdapter;
 import com.example.food_order.categoryRecycler.CategoryViewHolder;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity implements CategoryViewHolder.OnNoteListener {
 
-
-
     // Properties
     DatabaseAccess db;
     ArrayList<Category> categories;
+    ArrayList<PlaylistObject> playlists;
     CategoryAdapter categoryAdapter;
+    PlaylistAdapter playlistAdapter;
+    RecyclerView.LayoutManager mLayoutManager;
 
     // XML Views
     RecyclerView categoriesRecyclerView;
@@ -38,7 +40,11 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
     Button allPlaylistsButton;
     RecyclerView playlistRecyclerView;
 
-
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        setUpSecondRecycler();      //update the recycler when a new playlist is made
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
         connectXMLViews();
         populateCategories();
         setUpGridLayout();
+        setUpSecondRecycler();
         allPlaylistsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
             }
         });
     }
-
     public void connectXMLViews() {
         categoriesRecyclerView = findViewById(R.id.categories_recycle);
         restaurantImage = findViewById(R.id.image);
@@ -83,7 +89,6 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
             }
         });
     }
-
     private void populateCategories() {
         // The name of the category matches those in the database
         categories = new ArrayList<Category>();
@@ -92,8 +97,8 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
         categories.add(new Category("Oriental", R.drawable.oriental));
         categories.add(new Category("South and Southeast Asian", R.drawable.indian));
         categories.add(new Category("Bubble Tea", R.drawable.tea));
+        categories.add(new Category("Other", R.drawable.logo));
     }
-
     public void setUpGridLayout() {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
         categoriesRecyclerView.setLayoutManager(gridLayoutManager);
@@ -102,16 +107,71 @@ public class MainActivity extends AppCompatActivity implements CategoryViewHolde
         categoriesRecyclerView.setHasFixedSize(true);
     }
 
+    public void setUpSecondRecycler() {
+        playlists = db.getPlaylists();
+        if (playlists.isEmpty()) {
+            PlaylistObject playlistObject = new PlaylistObject("", BitmapFactory.decodeResource(this.getResources(), R.drawable.logo));
+            playlists.add(playlistObject);
+        }
+        // Set the size of each playlist
+        for (PlaylistObject playlist: playlists) {
+            playlist.size = db.getPlaylistDishes(playlist.playlistName).size();
+        }
+        mLayoutManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
+        playlistRecyclerView.setLayoutManager(mLayoutManager);
+        playlistAdapter = new PlaylistAdapter(playlists);
+        playlistRecyclerView.setAdapter(playlistAdapter);
+        playlistAdapter.setOnItemClickListener(new PlaylistAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                System.out.println("Playlist clicked at " + position);
+                Intent intent = new Intent(MainActivity.this, EditPlaylist.class);
+                intent.putExtra("playlistname", playlists.get(position).playlistName);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onDeleteClick(int position) {
+                deleteItem(position);
+                System.out.println("Delete clicked at " + position);
+            }
+
+            @Override
+            public void onOrderClick(int position) {
+                addPlaylistToCart(position);
+                System.out.println("Order clicked at " + position);
+            }
+        });
+    }
+
+    public void addPlaylistToCart(int position) {
+        ArrayList<Dish> playlistDishes = db.getPlaylistDishes(playlists.get(position).playlistName);
+        for (Dish dish : playlistDishes) {
+            if (dish.mQuantity > 0) {
+                db.addFoodToCart(dish, dish.mQuantity);
+                Toast.makeText(MainActivity.this, ("Added playlist " + playlists.get(position).playlistName + " to Cart"), Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    public void deleteItem(int position) {
+        db.deletePlaylist(playlists.get(position).playlistName);
+        if (playlists.size() > 1) {
+            playlists.remove(position);
+            playlistAdapter.notifyItemRemoved(position);
+        } else {
+            PlaylistObject playlistObject = new PlaylistObject("", BitmapFactory.decodeResource(this.getResources(), R.drawable.logo));
+            playlists.set(position, playlistObject);
+            playlistAdapter.notifyItemChanged(position);
+        }
+    }
 
     @Override
     public void onNoteClick(int position) {
         Category currentCategory = categories.get(position);
         // This gets all the restaurants in the category selected
-
-
         Intent intent = new Intent(this, RestaurantView.class);
         intent.putExtra("catname", currentCategory.categoryName);
         startActivity(intent);
     }
-
 }

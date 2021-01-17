@@ -51,7 +51,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantViewHolder
         holder.priceView.setText(restaurant.priceRange);
         holder.starsView.setRating(Stars);
         System.out.println(Stars);
-        holder.feeView.setText(restaurant.deliveryFee);
+        holder.feeView.setText(restaurant.deliveryFee + " Delivery");
     }
 
     @Override

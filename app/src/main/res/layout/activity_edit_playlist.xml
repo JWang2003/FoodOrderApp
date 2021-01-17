@@ -4,36 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditPlaylist">
+    tools:context=".EditPlaylist"
+    android:background="#FAFAFA">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         app:cardBackgroundColor="#E8E8E8"
-        app:cardCornerRadius="20dp"
+        app:cardCornerRadius="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/playlistName"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:fontFamily="sans-serif-black"
-                android:gravity="center"
-                android:text="PLAYLIST NAME"
-                android:textColor="@color/black"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/playlistName"
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:fontFamily="sans-serif-black"
+            android:text="%PLAYLISTNAME%"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:autoSizeTextType="uniform"
+            android:textSize="35sp"
+            android:textColor="#4b4b4b" />
 
     </androidx.cardview.widget.CardView>
 
@@ -46,19 +40,15 @@
         app:layout_constraintTop_toBottomOf="@id/cardView">
 
         <TextView
-            android:layout_width="189dp"
-            android:layout_height="33dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_weight="3"
-            android:fontFamily="@font/open_sans_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:layout_margin="25dp"
+            android:textColor="#000000"
+            android:textSize="35sp"
             android:text="Items"
-            android:textColor="@color/black"
-            android:textSize="24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -66,12 +56,11 @@
         android:id="@+id/playlist_recycle"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="15dp"
         android:scrollbars="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topbar" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
