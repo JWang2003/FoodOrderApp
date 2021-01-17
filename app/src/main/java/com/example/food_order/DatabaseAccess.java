@@ -143,9 +143,9 @@ public class DatabaseAccess {
                 contentValues.put("FoodDetails", dish.mDetails);
                 long result = db.insert("Cart", null, contentValues);
                 if (result != 0) {
-                    Toast.makeText(context, "Data added into our table", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Successfully added to your cart!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(context, "Failed to add data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Failed to add to your cart :'(", Toast.LENGTH_SHORT).show();
                 }
                 close();
             }

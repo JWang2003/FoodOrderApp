@@ -11,9 +11,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,7 +29,6 @@ public class MenuView extends AppCompatActivity implements MenuViewHolder.OnNote
 
     DatabaseAccess db;
     ArrayList<Dish> dishes;
-
     Restaurant restaurant;
     yelpFragment fragment;
     Bitmap restaurantImage;
@@ -46,8 +45,6 @@ public class MenuView extends AppCompatActivity implements MenuViewHolder.OnNote
     ImageButton yelpLink;
     ImageButton toCart;
 
-    ConstraintLayout constraintLayout;
-
     // RecyclerView
     RecyclerView mRecyclerView;
     MenuAdapter mAdapter;
@@ -61,10 +58,10 @@ public class MenuView extends AppCompatActivity implements MenuViewHolder.OnNote
         setContentView(R.layout.activity_menu_view);
 
         //Main Display
+        initViews();
         getIntents();
         setUpButtons();
 
-        initViews();
         refreshAdapters();
 
     }
@@ -93,7 +90,9 @@ public class MenuView extends AppCompatActivity implements MenuViewHolder.OnNote
         toCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openCart();
+                if (!db.getCartDishes().isEmpty()) {
+                    openCart();
+                };
             }
         });
     }
@@ -117,22 +116,17 @@ public class MenuView extends AppCompatActivity implements MenuViewHolder.OnNote
         mRecyclerView.setNestedScrollingEnabled(false);
     }
 
-
-
-
     public void connectXMLViews() {
-        constraintLayout = findViewById(R.id.page);
-        // If they click the constraint layout, close the yelp page
-        constraintLayout.setOnClickListener(new View.OnClickListener() {
+        nestedScrollView.getChildAt(0).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(fragment != null)
-                    layout.setVisibility(layout.INVISIBLE);
-//                    getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-//                    getSupportFragmentManager().beginTransaction().replace(R.id.web_container, null).commit();
+                System.out.println("CLicked");
+                if(fragment != null) {
+                    System.out.println("CLicked");
+                    getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+                }
             }
         });
-//        layout = findViewById(R.id.web_container);
         int Stars = 0;
         String [] starArray = restaurant.starRating.split("");
         for (String s : starArray) {
@@ -152,17 +146,22 @@ public class MenuView extends AppCompatActivity implements MenuViewHolder.OnNote
         restStars.setRating(Stars);
         restDeliveryFee = findViewById(R.id.delivery);
         restDeliveryFee.setText(restaurant.deliveryFee);
-
-//        // TODO: Connect button
-//        yelpLink = findViewById(R.id.yelp_link);
-//        yelpLink.setOnClickListener(v -> getWebFragment());
+        layout = findViewById(R.id.web_container);
+        yelpLink = findViewById(R.id.yelp_link);
+        yelpLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getWebFragment();
+            }
+        });
     }
 
-//    public void getWebFragment(){
-//        layout.setVisibility(layout.VISIBLE);
-//        fragment = yelpFragment.newInstance(restaurant.yelpUrl);
-//        getSupportFragmentManager().beginTransaction().replace(R.id.web_container, fragment).commit();
-//    }
+    public void getWebFragment(){
+        Toast.makeText(this, "Loading Yelp Page for " + restaurant.name, Toast.LENGTH_SHORT).show();
+        layout.setVisibility(layout.VISIBLE);
+        fragment = yelpFragment.newInstance(restaurant.yelpUrl);
+        getSupportFragmentManager().beginTransaction().replace(R.id.web_container, fragment).commit();
+    }
 
     @Override
     public void onNoteClick(int position) {

@@ -48,7 +48,7 @@ public class allPlaylist extends AppCompatActivity{
         System.out.println(playlists);
         // Default playlist when user has no playlists
         if (playlists.isEmpty()) {
-            PlaylistObject playlistObject = new PlaylistObject("JDfshfkjhsfs", BitmapFactory.decodeResource(this.getResources(), R.drawable.barry_20b__20benson_large));
+            PlaylistObject playlistObject = new PlaylistObject("You do not currently have any playlists!", BitmapFactory.decodeResource(this.getResources(), R.drawable.barry_20b__20benson_large));
             playlists.add(playlistObject);
         }
         // Set the size of each playlist
@@ -73,7 +73,7 @@ public class allPlaylist extends AppCompatActivity{
             playlists.remove(position);
             playlistAdapter.notifyItemRemoved(position);
         } else {
-            PlaylistObject playlistObject = new PlaylistObject("SDJFsHF", BitmapFactory.decodeResource(this.getResources(), R.drawable.barry_20b__20benson_large));
+            PlaylistObject playlistObject = new PlaylistObject("You do not currently have any playlists!", BitmapFactory.decodeResource(this.getResources(), R.drawable.barry_20b__20benson_large));
             playlists.set(position, playlistObject);
             playlistAdapter.notifyItemChanged(position);
         }
