@@ -94,8 +94,6 @@ public class CheckoutView extends AppCompatActivity {
         mTaxView.setText("+ Tax: $" + String.format("%.2f", subtotal * 0.05));
         mTotalPriceView.setText("$" + String.format("%.2f", subtotal * 1.05));
 
-
-
     }
 
     public void buildRecyclerView() {

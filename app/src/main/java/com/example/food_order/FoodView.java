@@ -1,10 +1,12 @@
 package com.example.food_order;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +29,7 @@ public class FoodView extends AppCompatActivity {
     Button increment;
     Button decrement;
     Button addToCart;
+    ImageButton toCart;
 
 
     @Override
@@ -67,7 +70,8 @@ public class FoodView extends AppCompatActivity {
         dishQuantity.setText(String.valueOf(dish.mQuantity));
         increment = findViewById(R.id.food_increment);
         decrement = findViewById(R.id.food_decrement);
-        addToCart = findViewById(R.id.to_cart);
+        addToCart = findViewById(R.id.food_addToCart);
+        toCart = findViewById(R.id.cartButton);
     }
 
     public void setButtonListeners() {
@@ -94,5 +98,18 @@ public class FoodView extends AppCompatActivity {
                 db.addFoodToCart(dish, dish.mQuantity);
             }
         });
+        toCart.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCart();
+            }
+        }));
+    }
+
+    public void openCart() {
+        if (!db.getCartDishes().isEmpty()) {
+            Intent intent = new Intent(this, CheckoutView.class);
+            startActivity(intent);
+        }
     }
 }

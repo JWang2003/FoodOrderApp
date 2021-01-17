@@ -99,8 +99,10 @@ public class MenuView extends AppCompatActivity implements MenuViewHolder.OnNote
     }
 
     private void openCart() {
-        Intent openCart = new Intent(this, CheckoutView.class);
-        startActivity(openCart);
+        if (!db.getCartDishes().isEmpty()) {
+            Intent openCart = new Intent(this, CheckoutView.class);
+            startActivity(openCart);
+        }
     }
 
     public void initViews() {
@@ -118,15 +120,13 @@ public class MenuView extends AppCompatActivity implements MenuViewHolder.OnNote
     }
 
 
-
-
     public void connectXMLViews() {
         constraintLayout = findViewById(R.id.page);
         // If they click the constraint layout, close the yelp page
         constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(fragment != null)
+                if (fragment != null)
                     layout.setVisibility(layout.INVISIBLE);
 //                    getSupportFragmentManager().beginTransaction().remove(fragment).commit();
 //                    getSupportFragmentManager().beginTransaction().replace(R.id.web_container, null).commit();
@@ -134,7 +134,7 @@ public class MenuView extends AppCompatActivity implements MenuViewHolder.OnNote
         });
 //        layout = findViewById(R.id.web_container);
         int Stars = 0;
-        String [] starArray = restaurant.starRating.split("");
+        String[] starArray = restaurant.starRating.split("");
         for (String s : starArray) {
             if (s.equals("*")) {
                 Stars++;
