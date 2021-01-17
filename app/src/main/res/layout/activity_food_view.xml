@@ -167,5 +167,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/to_cart"
         app:srcCompat="@drawable/ic_baseline_bookmark_24" />
+    <Spinner
+        android:id="@+id/playlist_spinner"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toEndOf="@id/imageButton"
+        app:layout_constraintBottom_toBottomOf="@id/imageButton">
+
+    </Spinner>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,6 +39,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
         public TextView mPriceText;
         public Button mDecrementCounter;
         public Button mIncrementCounter;
+        public Button mDetailsButton;       //THIS IS AN OUTDATED NAME FOR THE ADD TO CART BUTTON. DO NOT DELETE!
         public TextView mCounterText;
         public ImageButton mDeleteButton;
 
@@ -49,6 +50,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
             mPriceText = itemView.findViewById(R.id.food_price);
             mIncrementCounter = itemView.findViewById(R.id.increment_counter);
             mDecrementCounter = itemView.findViewById(R.id.decrement_counter);
+            mDetailsButton = itemView.findViewById(R.id.add_to_cart);
             mCounterText = itemView.findViewById(R.id.counter);
             mDeleteButton = itemView.findViewById(R.id.delete_button);
 
@@ -81,6 +83,17 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
                             listener.onDecrementClick(position);
+                        }
+                    }
+                }
+            });
+            mDetailsButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onDetailsClick(position);
                         }
                     }
                 }
