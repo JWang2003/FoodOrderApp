@@ -4,18 +4,28 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-public class FoodView extends AppCompatActivity {
+public class FoodView extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Dish dish;
     DatabaseAccess db;
     Bitmap foodImage;
+    ArrayList<String> mPlaylistNameList;
+    PlaylistObject createPlaylist;
 
     //XML
     TextView dishName;
@@ -27,6 +37,7 @@ public class FoodView extends AppCompatActivity {
     Button increment;
     Button decrement;
     Button addToCart;
+    Spinner mSpinner;
 
 
     @Override
@@ -36,6 +47,7 @@ public class FoodView extends AppCompatActivity {
         getIntents();
         connectXMLViews();
         setButtonListeners();
+        setUpSpinner();
     }
 
     public void getIntents() {
@@ -94,5 +106,37 @@ public class FoodView extends AppCompatActivity {
                 db.addFoodToCart(dish, dish.mQuantity);
             }
         });
+    }
+
+    public void setUpSpinner() {
+        mPlaylistNameList = new ArrayList<>();
+        for (PlaylistObject pl : db.getPlaylists()) {
+            mPlaylistNameList.add(pl.playlistName);
+        }
+        //createPlaylist = new PlaylistObject("Create new playlist", BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_baseline_add_24), 0);
+        mPlaylistNameList.add(0, "Create new playlist...");    //add the first option
+        mSpinner = findViewById(R.id.playlist_spinner);
+        mSpinner.setOnItemSelectedListener(this);
+
+        ArrayAdapter<String> mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mPlaylistNameList);
+        mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mAdapter.notifyDataSetChanged();
+        mSpinner.setAdapter(mAdapter);
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (position==0) {
+            //TODO: take a name input
+        } else {
+            db.addToPlaylist(mPlaylistNameList.get(position), dish);
+            Toast.makeText(this, ("Added " + dish.mQuantity + "x " + dish.mFoodName + " to playlist " + mPlaylistNameList.get(position)), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
