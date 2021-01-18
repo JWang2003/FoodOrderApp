@@ -1,10 +1,11 @@
-## Hungr - Food Ordering App by Team 15 (Richmond Secondary School)
+## Hungr - Food Ordering App by Team 15                    (Richmond Secondary School)
 
 ## General Information
 Our goal was to create a food ordering app that minimized choice paralysis by displaying information in a way that is easy to digest.
 We also wanted to make it faster for users to order their favourite food items by saving them with our "Playlist" feature.
 
 Our app currently contains 5 categories, 16 restaurants, and 39 different food items. Restaurant data and food data is stored with a SQL database. Here is a link to a spreadsheet with all our data https://docs.google.com/spreadsheets/d/1nJZMTQx7NHYwNTIhn0NGCqcfiRjB-YCsvgqoMQ_yIpM/edit?usp=sharing
+
 We could have added more data, but we just wanted to prove that we have the infrastructure in place to easily add more restaurants and dishes.
 
 ## Notes: 
@@ -15,30 +16,30 @@ We could have added more data, but we just wanted to prove that we have the infr
 
 To view the database file go to food-order/app/src/main/assets/databases/FoodApp.db then download and open with an application such as DB Browser for SQLite.
 Our database file has (19) tables as follows:
-1. A table listing all the restaurants with the following datapoints (1):
+* A table listing all the restaurants with the following datapoints (1):
 Category | Restaurant Name | Address | $/$$/$$$ | Stars Rating | Delivery Fee | Yelp Page URL
 
-2. Each restaurant has its own table containing its menu - for most restaurants we only added 2 dishes (16):
+* Each restaurant has its own table containing its menu - for most restaurants we only added 2 dishes (16):
 Food Name | Price | Image | Food Details
 
-3. Table to hold dishes added to cart (1):
+* A table to hold dishes added to cart (1):
 Quantity | Food Name | Food Image | Food Price | Food Details
 
-4. Table to hold dishes saved to a playlist (1):
+* A table to hold dishes saved to a playlist (1):
 Name of Playlist | Quantity | Food Name | Food Image | Food Price | Food Details
 
 ## Pages in the app
 The app has 7 pages/activities:
-1. Home page to choose a category/search for a restaurant. The is also a SlidingUpPanelLayout to display the user's saved playlists. (Our playlist feature allows the user to save their favourite foods and order them quickly, we should've called it something else, but the name "playlist" stuck)
-2. Page to view restaurants after a category/search has been made. The user can also use the searchview to filter restaurants.
-3. Page to view a restaurant's menu. This has a Yelp button that opens a webview fragment displaying the restaurant's Yelp page.
-4. Page to view a selected a dish. Here it can be added to the cart and/or saved to their playlist.
-5. Page to view all user playlists
-6. Page to edit a specific playlist and order specific dishes, or delete them from the playlist
-7. Checkout page which displays all food items and the total price
+* Home page to choose a category/search for a restaurant. The is also a SlidingUpPanelLayout to display the user's saved playlists. (Our playlist feature allows the user to save their favourite foods and order them quickly, we should've called it something else, but the name "playlist" stuck)
+* Page to view restaurants after a category/search has been made. The user can also use the searchview to filter restaurants.
+* Page to view a restaurant's menu. This has a Yelp button that opens a webview fragment displaying the restaurant's Yelp page.
+* Page to view a selected a dish. Here it can be added to the cart and/or saved to their playlist.
+* Page to view all user playlists
+* Page to edit a specific playlist and order specific dishes, or delete them from the playlist
+* Checkout page which displays all food items and the total price
 
 ## Things we learned for this project
-* Use a database
+* Make SQL database, add data, modify data, and access data
 * Singletons
 * toString()
 * Bitmap
