@@ -13,12 +13,15 @@ We could have added more data, but we just wanted to prove that we have the infr
 * The emulator we used has a resolution of 1080 x 1920 420dpi. Buttons may be misaligned if your emulator resolution does not match this. We do not know how to prevent this.
 
 ## Database structure
+To view the database file go to food-order/app/src/main/assets/databases/FoodApp.db then 
+download and open with an application such as DB Browser for SQLite. Our database file has 19 tables as follows:
 * A table listing all the restaurants with the following datapoints: Category | Restaurant Name | Address | $/$$/$$$ | Stars Rating | Delivery Fee | Yelp Page URL
 * Each restaurant has its own table containing its menu - for most restaurants we only added 2 dishes: Food Name | Price | Image | Food Details
 * A table to hold dishes added to cart: Quantity | Food Name | Food Image | Food Price | Food Details
 * A table to hold dishes saved to a playlist: Name of Playlist | Quantity | Food Name | Food Image | Food Price | Food Details
 
 ## Pages in the app
+The app has 7 pages/activities:
 * Home page to choose a category/search for a restaurant. The is also a SlidingUpPanelLayout to display the user's saved playlists. (Our playlist feature allows the user to save their favourite foods and order them quickly, we should've called it something else, but the name "playlist" stuck)
 * Page to view restaurants after a category/search has been made. The user can also use the searchview to filter restaurants.
 * Page to view a restaurant's menu. This has a Yelp button that opens a webview fragment displaying the restaurant's Yelp page.
