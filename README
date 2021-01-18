@@ -54,3 +54,4 @@ The app has 7 pages/activities:
 * When use the search feature, sometimes a restaurant is shown twice.
 * Webview is slow to load
 * Yelp WebView denies access when trying to click on links inside it
+* In previous versions, webview has completely denied access, it does not happen to us anymore, but might still exist
