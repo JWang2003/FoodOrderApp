@@ -4,32 +4,32 @@
 Our goal was to create a food ordering app that minimized choice paralysis by displaying information in a way that is easy to digest.
 We also wanted to make it faster for users to order their favourite food items by saving them with our "Playlist" feature.
 
-Our app currently contains 5 categories, 16 restaurants, and 39 different food items. Restaurant data and food data is stored with a SQL database. Here is a link to a spreadsheet with all our data https://docs.google.com/spreadsheets/d/1nJZMTQx7NHYwNTIhn0NGCqcfiRjB-YCsvgqoMQ_yIpM/edit?usp=sharing
+Our app currently contains 5 categories, 16 restaurants, and 39 different food items. Restaurant data and food data is stored with a SQL database. Here is a link to a spreadsheet with all our data. https://docs.google.com/spreadsheets/d/1nJZMTQx7NHYwNTIhn0NGCqcfiRjB-YCsvgqoMQ_yIpM/edit?usp=sharing
 
 We could have added more data, but we just wanted to prove that we have the infrastructure in place to easily add more restaurants and dishes.
 
 ## Notes: 
 * When running the app, some dishes didn't have an image. In those cases, a default image "Hungr" replaces it.
-* The emulator we used has a resolution of 1080 x 1920 420dpi. Buttons may be misaligned if your emulator does not match. We do not know how to prevent this.
+* The emulator we used has a resolution of 1080 x 1920 420dpi. Buttons may be misaligned if your emulator resolution does not match this. We do not know how to prevent this.
 
 ## Database structure
 
 To view the database file go to food-order/app/src/main/assets/databases/FoodApp.db then download and open with an application such as DB Browser for SQLite.
-Our database file has (19) tables as follows:
-* A table listing all the restaurants with the following datapoints (1):
+Our database file has 19 tables as follows.
+* A table listing all the restaurants with the following datapoints:
 Category | Restaurant Name | Address | $/$$/$$$ | Stars Rating | Delivery Fee | Yelp Page URL
 
-* Each restaurant has its own table containing its menu - for most restaurants we only added 2 dishes (16):
+* Each restaurant has its own table containing its menu - for most restaurants we only added 2 dishes:
 Food Name | Price | Image | Food Details
 
-* A table to hold dishes added to cart (1):
+* A table to hold dishes added to cart:
 Quantity | Food Name | Food Image | Food Price | Food Details
 
-* A table to hold dishes saved to a playlist (1):
+* A table to hold dishes saved to a playlist:
 Name of Playlist | Quantity | Food Name | Food Image | Food Price | Food Details
 
 ## Pages in the app
-The app has 7 pages/activities:
+The app has 7 pages/activities.
 * Home page to choose a category/search for a restaurant. The is also a SlidingUpPanelLayout to display the user's saved playlists. (Our playlist feature allows the user to save their favourite foods and order them quickly, we should've called it something else, but the name "playlist" stuck)
 * Page to view restaurants after a category/search has been made. The user can also use the searchview to filter restaurants.
 * Page to view a restaurant's menu. This has a Yelp button that opens a webview fragment displaying the restaurant's Yelp page.
